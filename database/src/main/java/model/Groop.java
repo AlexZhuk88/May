@@ -1,10 +1,6 @@
 package model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 import javax.persistence.Entity;
@@ -17,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@ToString(exclude = "setConcert")
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor

@@ -43,11 +43,11 @@
                 <label for="groop">Groop:</label>
                 <select class="form-control" name="groop" id="groop">
                     <c:forEach var="groopIn" items="${requestScope.groops}">
-                        <c:if test="${groopIn.groopname eq requestScope.groop}">
-                            <option selected value="${groopIn.groopname}">${groopIn.groopname}</option>
+                        <c:if test="${groopIn eq requestScope.groop}">
+                            <option selected value="${groopIn}">${groopIn}</option>
                         </c:if>
-                        <c:if test="${groopIn.groopname != requestScope.groop}">
-                            <option value="${groopIn.groopname}">${groopIn.groopname}</option>
+                        <c:if test="${groopIn != requestScope.groop}">
+                            <option value="${groopIn}">${groopIn}</option>
                         </c:if>
                     </c:forEach>
                 </select><br>
