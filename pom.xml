@@ -50,11 +50,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                    <encoding>${file.encoding}</encoding>
-                </configuration>
+                <!--<mvc.temp.configuration>-->
+                    <!--<source>${maven.compiler.source}</source>-->
+                    <!--<target>${maven.compiler.target}</target>-->
+                    <!--<encoding>${file.encoding}</encoding>-->
+                <!--</mvc.temp.configuration>-->
             </plugin>
             <!--<plugin>-->
                 <!--<groupId>org.apache.maven.plugins</groupId>-->
@@ -64,12 +64,12 @@
                     <!--<execution>-->
                         <!--<id>validate</id>-->
                         <!--<phase>validate</phase>-->
-                        <!--<configuration>-->
+                        <!--<mvc.temp.configuration>-->
                             <!--<configLocation>checkstyle.xml</configLocation>-->
                             <!--<encoding>UTF-8</encoding>-->
                             <!--<consoleOutput>true</consoleOutput>-->
                             <!--<failsOnError>true</failsOnError>-->
-                        <!--</configuration>-->
+                        <!--</mvc.temp.configuration>-->
                         <!--<goals>-->
                             <!--<goal>check</goal>-->
                         <!--</goals>-->
@@ -91,10 +91,10 @@
                         <goals>
                             <goal>process</goal>
                         </goals>
-                        <configuration>
-                            <outputDirectory>target/generated-sources/java</outputDirectory>
-                            <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
-                        </configuration>
+                        <!--<mvc.temp.configuration>-->
+                            <!--<outputDirectory>target/generated-sources/java</outputDirectory>-->
+                            <!--<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>-->
+                        <!--</mvc.temp.configuration>-->
                     </execution>
                 </executions>
             </plugin>
@@ -109,11 +109,11 @@
                         <goals>
                             <goal>add-source</goal>
                         </goals>
-                        <configuration>
-                            <sources>
-                                <source>${basedir}/target/generated-sources/java</source>
-                            </sources>
-                        </configuration>
+                        <!--<mvc.temp.configuration>-->
+                            <!--<sources>-->
+                                <!--<source>${basedir}/target/generated-sources/java</source>-->
+                            <!--</sources>-->
+                        <!--</mvc.temp.configuration>-->
                     </execution>
                 </executions>
             </plugin>

@@ -9,12 +9,12 @@
     <title>Demo KT3</title>
 </head>
 <body>
-
+<div>${count}</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2" style="height: 100%">
             <br><h5 align="center">Filters</h5><br>
-            <form action="${pageContext.request.contextPath}/concert" method="get">
+            <form action="${pageContext.request.contextPath}/kt3" method="get">
                 <label for="pagin">Number of element on one page:</label>
                 <input type="text" style="width: 5em" class="form-control" name="pagin" id="pagin"
                        value="${requestScope.pagin}">
@@ -71,7 +71,7 @@
                 <ul class="pagination justify-content-center">
                     <c:forEach var="i" begin="1" end="${countPage}" step="1">
                         <li class="page-item"><a class="page-link"
-                                                 href="/concert?numPage=${i}&pagin=${pagin}&city=${city}&place=${place}&groop=${groop}">${i}</a>
+                                                 href="/kt3?numPage=${i}&pagin=${pagin}&city=${city}&place=${place}&groop=${groop}">${i}</a>
                         </li>
                     </c:forEach>
                 </ul>

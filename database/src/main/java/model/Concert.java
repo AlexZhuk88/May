@@ -2,21 +2,13 @@ package model;
 
 import lombok.*;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = "groop")
 @Entity
 @Builder
 @Table(name = "concert", schema = "smay_db")
@@ -28,7 +20,7 @@ public class Concert extends BaseEntity<Long> {
 
     private String concertName;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "groop_id")
     private Groop groop;
 

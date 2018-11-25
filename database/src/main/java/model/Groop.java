@@ -2,7 +2,6 @@ package model;
 
 import lombok.*;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,10 +12,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@ToString(exclude = "setConcert")
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = "setConcert")
 @Entity
 @Builder
 @Table(name = "groop", schema = "smay_db")

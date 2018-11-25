@@ -51,7 +51,7 @@ public class ConcertRepositoryTest {
 
     @Test
     public void checkByFilters (){
-        List <Concert> listByFilters = concertRepository.findByFilters(2,1,"Паб","Гродно","Любэ Test");
+        List <Concert> listByFilters = concertRepository.findByFilters(2,1,"Все места","Все города","Все группы");
         System.out.println(listByFilters);
     }
 
@@ -76,7 +76,7 @@ public class ConcertRepositoryTest {
     @Test
     public void checkFindAllGroop(){
         List<String> listAllGroop = concertRepository.findAllGroop();
-        System.out.println();
+        System.out.println(listAllGroop);
     }
 
 //

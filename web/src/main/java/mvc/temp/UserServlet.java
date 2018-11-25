@@ -1,4 +1,4 @@
-package temp;
+package mvc.temp;
 
 import model.User;
 import service.UserService;

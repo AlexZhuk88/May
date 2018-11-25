@@ -1,4 +1,4 @@
-package temp;
+package mvc.temp;
 
 import model.Concert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +55,6 @@ public class ConcertViewServlet extends HttpServlet {
         req.setAttribute("cities", listCity);
         req.setAttribute("groops", listGroop);
 
-        getServletContext().getRequestDispatcher("/WEB-INF/jsp/kt3.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/WEB-INF/jsp/concert.jsp").forward(req, resp);
     }
 }
