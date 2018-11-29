@@ -9,7 +9,7 @@
     <title>Demo KT3</title>
 </head>
 <body>
-<div>${count}</div>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2" style="height: 100%">

@@ -1,57 +1,48 @@
 package mvc.controller;
 
-import model.Concert;
+import dto.ConcertFilterDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import repository.ConcertRepo.ConcertRepository;
-
-import java.util.List;
+import service.ConcertService;
 
 @Controller
+@Transactional
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ConcertController {
 
-    @Autowired
-    private ConcertRepository concertRepository;
+    private final ConcertService concertService;
 
     @GetMapping("/kt3")
-    public String greeting(Model model, @RequestParam(value = "pagin", required=false) String paginIn,
-                                        @RequestParam(value = "numPage", required=false) String numPageIn,
-                                        @RequestParam(value = "place", required=false) String placeIn,
-                                        @RequestParam(value = "city", required=false) String cityIn,
-                                        @RequestParam(value = "groop", required=false) String groopIn
-                           ) {
+    public String greeting(Model model, @RequestParam(value = "pagin", required = false) String paginIn,
+                           @RequestParam(value = "numPage", required = false) String numPageIn,
+                           @RequestParam(value = "place", required = false) String placeIn,
+                           @RequestParam(value = "city", required = false) String cityIn,
+                           @RequestParam(value = "groop", required = false) String groopIn
+    ) {
 
         Integer pagin = paginIn == null ? 5 : Integer.valueOf(paginIn);
         Integer numPage = numPageIn == null ? 1 : Integer.valueOf(numPageIn);
-
         String place = placeIn == null ? "Все места" : placeIn;
         String city = cityIn == null ? "Все города" : cityIn;
         String groop = groopIn == null ? "Все группы" : groopIn;
 
-        List<String> listPlace = concertRepository.findAllPlace();
-        listPlace.add("Все места");
-        List<String> listCity = concertRepository.findAllCity();
-        listCity.add("Все города");
-        List<String> listGroop = concertRepository.findAllGroop();
-        listGroop.add("Все группы");
+        ConcertFilterDto concertFilterDto = concertService.prepareConcertPage(pagin, numPage, place, city, groop);
+        Double countPage = Math.ceil((double) concertFilterDto.getCountConcert() / pagin);
 
-        List<Concert> listConcert = concertRepository.findByFilters(pagin, numPage, place, city, groop);
-        Long countConcert = concertRepository.findCountPage(pagin, numPage, place, city, groop);
-        Double countPage = Math.ceil((double) countConcert / pagin);
-
-        model.addAttribute("count", concertRepository.findCountPage(1, 1, "Все места", "Все города", "Все группы"));
         model.addAttribute("place", place);
         model.addAttribute("city", city);
         model.addAttribute("groop", groop);
         model.addAttribute("pagin", pagin);
         model.addAttribute("numPage", numPage);
         model.addAttribute("countPage", countPage);
-        model.addAttribute("concerts", listConcert);
-        model.addAttribute("places", listPlace);
-        model.addAttribute("cities", listCity);
-        model.addAttribute("groops", listGroop);
+        model.addAttribute("concerts", concertFilterDto.getListConcert());
+        model.addAttribute("places", concertFilterDto.getListPlace());
+        model.addAttribute("cities", concertFilterDto.getListCity());
+        model.addAttribute("groops", concertFilterDto.getListGroop());
 
         return "concert";
     }

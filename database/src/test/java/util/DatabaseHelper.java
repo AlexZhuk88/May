@@ -15,6 +15,7 @@ import java.time.LocalTime;
 @Component
 public class DatabaseHelper {
 
+    @Autowired
     private final EntityManagerFactory entityManagerFactory;
 
     @Autowired

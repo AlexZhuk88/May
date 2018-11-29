@@ -1,6 +1,7 @@
 package repository.ConcertRepo;
 
 import com.querydsl.jpa.impl.JPAQuery;
+import lombok.RequiredArgsConstructor;
 import model.Concert;
 import model.QConcert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomConcertRepositoryImpl implements CustomConcertRepository {
 
-    @Autowired
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     @Override
     public List<Concert> findByFilters(Integer pagin, int numPage, String place, String city, String groopName) {

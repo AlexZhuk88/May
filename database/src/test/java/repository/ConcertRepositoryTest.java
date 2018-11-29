@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = TestConfiguration.class)
@@ -43,38 +42,40 @@ public class ConcertRepositoryTest {
     }
 
     @Test
-    public void checkFindAll() {
-        List list = new ArrayList(){};
-        concertRepository.findAll().forEach(list::add);
-        assertEquals(list.size(),5);
-    }
-
-    @Test
-    public void checkByFilters (){
-        List <Concert> listByFilters = concertRepository.findByFilters(2,1,"Все места","Все города","Все группы");
-        System.out.println(listByFilters);
-    }
-
-    @Test
-    public void checkByFiltersCount (){
-        Long count = concertRepository.findCountPage(2,1,"Все места","Все города","Все группы");
+    public void checkCount() {
+        Long count = concertRepository.findCountPage(2, 2, "Все места", "Все города", "Все группы");
         System.out.println(count);
     }
 
     @Test
-    public void checkFindAllCity(){
+    public void checkFindAll() {
+        List list = new ArrayList() {
+        };
+        concertRepository.findAll().forEach(list::add);
+        assertEquals(list.size(), 5);
+    }
+
+    @Test
+    public void checkByFilters() {
+        List<Concert> concertListDto = concertRepository.findByFilters(2, 1, "Все места", "Все города", "Все группы");
+        System.out.println();
+    }
+
+
+    @Test
+    public void checkFindAllCity() {
         List<String> listAllCity = concertRepository.findAllCity();
         System.out.println();
     }
 
     @Test
-    public void checkFindAllPlace(){
+    public void checkFindAllPlace() {
         List<String> listAllPlace = concertRepository.findAllPlace();
         System.out.println();
     }
 
     @Test
-    public void checkFindAllGroop(){
+    public void checkFindAllGroop() {
         List<String> listAllGroop = concertRepository.findAllGroop();
         System.out.println(listAllGroop);
     }
