@@ -2,6 +2,7 @@ package repository;
 
 import config.TestConfiguration;
 import model.Concert;
+import model.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import repository.ConcertRepo.ConcertRepository;
+import repository.UserProRepo.UserProRepository;
 import util.DatabaseHelper;
 
 import java.util.ArrayList;
@@ -27,6 +29,9 @@ public class ConcertRepositoryTest {
     private DatabaseHelper databaseHelper;
 
     @Autowired
+    private UserProRepository userProRepository;
+
+    @Autowired
     private ConcertRepository concertRepository;
 
     @Before
@@ -37,7 +42,7 @@ public class ConcertRepositoryTest {
 
     @Test
     public void checkFindByName() {
-        Concert concert = concertRepository.findByConcertName("Концерт№105");
+        Concert concert = concertRepository.findByConcertName("Концерт№101");
         Assert.assertNotNull(concert);
     }
 
@@ -61,6 +66,12 @@ public class ConcertRepositoryTest {
         System.out.println();
     }
 
+    @Test
+    public void checkGetUserByEmail() {
+
+        System.out.println(userProRepository.findByEmail("Alex@mail.ru"));
+        System.out.println();
+    }
 
     @Test
     public void checkFindAllCity() {
@@ -79,6 +90,13 @@ public class ConcertRepositoryTest {
         List<String> listAllGroop = concertRepository.findAllGroop();
         System.out.println(listAllGroop);
     }
+
+    @Test
+    public void checkFindAllGroopy() {
+        List<String> listGroop = concertRepository.findAllGroopy();
+        System.out.println();
+    }
+
 
 //
 //    @Test

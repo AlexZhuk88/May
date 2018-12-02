@@ -3,12 +3,15 @@ package service;
 import dto.ConcertFilterDto;
 import lombok.RequiredArgsConstructor;
 import model.Concert;
+import model.ConcertPlace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import repository.ConcertPlaceRepo.ConcertPlaceRepository;
 import repository.ConcertRepo.ConcertRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -16,6 +19,11 @@ import java.util.List;
 public class ConcertService {
 
     private final ConcertRepository concertRepository;
+    private final ConcertPlaceRepository concertPlaceRepository;
+
+    public Optional<Concert> findById(Long id){
+        return concertRepository.findById(id);
+    }
 
     public ConcertFilterDto prepareConcertPage(Integer pagin, int numPage, String place, String city, String groop) {
         List<String> listPlace = concertRepository.findAllPlace();
@@ -33,4 +41,19 @@ public class ConcertService {
                 .listConcert(listConcert)
                 .build();
     }
+
+    public List<String> findAllGroop() {
+        return concertRepository.findAllGroopy();
+    }
+
+    public Concert saveConcert(Concert concert){
+        Concert concertSaved = concertRepository.save(concert);
+        return concertSaved;
+    }
+
+    public void saveConcertPlace(ConcertPlace concertPlace){
+        concertPlaceRepository.save(concertPlace);
+    }
+
+
 }

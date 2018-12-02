@@ -40,6 +40,8 @@ public class User extends BaseEntity<Long> {
 
     private String password;
 
+    private Role role;
+
     @OneToMany(mappedBy = "user")
     private Set<TheNew> setNews = new HashSet<>();
 

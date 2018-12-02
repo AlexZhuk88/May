@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
+@ToString(exclude = "setConcert")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

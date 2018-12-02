@@ -24,7 +24,7 @@ public class Concert extends BaseEntity<Long> {
     @JoinColumn(name = "groop_id")
     private Groop groop;
 
-    @OneToOne(mappedBy = "concert")
+    @OneToOne(mappedBy = "concert", cascade = CascadeType.ALL)
     private ConcertPlace concertPlace;
 
     private String discription;

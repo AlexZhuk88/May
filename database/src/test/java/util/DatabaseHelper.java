@@ -1,9 +1,6 @@
 package util;
 
-import model.Concert;
-import model.ConcertPlace;
-import model.Groop;
-import model.Timing;
+import model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,6 +49,8 @@ public class DatabaseHelper {
         entityManager.persist(aria);
         entityManager.persist(timeMachine);
         entityManager.persist(lube);
+
+        entityManager.persist(User.builder().username("Alex").email("Alex@mail.ru").password("111").role(Role.ADMIN).build());
 
         Concert concertFirst = Concert.builder().concertName("Концерт№101").groop(srazyMay).discription("Будет круто!").timing(Timing.of(LocalDate.now(), LocalTime.now())).build();
         Concert concertSecond = Concert.builder().concertName("Концерт№102").groop(bi2).discription("Будет круто!").timing(Timing.of(LocalDate.now(), LocalTime.now())).build();
