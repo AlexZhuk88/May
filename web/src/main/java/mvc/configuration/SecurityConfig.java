@@ -26,19 +26,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                 .antMatchers("/concertmanager")
-                .hasAnyAuthority("ADMIN", "USER")
+                .hasAnyAuthority("ADMIN")
                 .antMatchers("/login")
                 .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/concertview", true)
+                .anyRequest()
+                .authenticated()
                 .and()
-                    .httpBasic();
-//                .and()
-//                .logout();
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/concertview", true)
+                .and()
+                .logout()
+                .and()
+                .csrf().disable()
+                .logout();
 
         http
                 .userDetailsService(userDetailsService);

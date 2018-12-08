@@ -23,7 +23,21 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/concertview}">Концерты</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/newsview}">Новости</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/contact}">Контакты</a>
+            </li>
         </ul>
+    </div>
+
+    <a th:text="${user.username}">
+    </a>&nbsp;
+    <div th:fragment="logout">
+        <form th:action="@{/logout}" th:method="post">
+            <input type="submit" th:value="Logout">
+        </form>
     </div>
 </nav>
 
