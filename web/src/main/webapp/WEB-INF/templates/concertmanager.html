@@ -30,6 +30,7 @@
 
 <div class="container" id="page">
     <section>
+        <p th:text="${user.username}"></p>
         <h1>Новый концерт</h1>
         <form th:action="@{/concertmanager}" method="post" th:object="${savedConcert}">
             <div class="card-group">
@@ -48,7 +49,7 @@
                                     Groop
                                 </option>
                             </select>
-                        </div>
+                        </div>user_meeting
                     </div>
                 </div>
 

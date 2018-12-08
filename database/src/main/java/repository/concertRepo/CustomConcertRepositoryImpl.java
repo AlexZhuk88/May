@@ -1,19 +1,15 @@
-package repository.ConcertRepo;
-
-//import com.querydsl.jpa.impl.JPAQuery;
+package repository.concertRepo;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.RequiredArgsConstructor;
 import model.Concert;
-//import model.QConcert;
 import model.QConcert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
+
 
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomConcertRepositoryImpl implements CustomConcertRepository {

@@ -2,7 +2,6 @@ package repository;
 
 import config.TestConfiguration;
 import model.Concert;
-import model.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import repository.ConcertRepo.ConcertRepository;
-import repository.UserProRepo.UserProRepository;
+import repository.concertRepo.ConcertRepository;
+import repository.userProRepo.UserProRepository;
 import util.DatabaseHelper;
 
 import java.util.ArrayList;

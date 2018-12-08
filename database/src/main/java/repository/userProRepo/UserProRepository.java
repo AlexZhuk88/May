@@ -1,4 +1,4 @@
-package repository.UserProRepo;
+package repository.userProRepo;
 
 import model.User;
 import org.springframework.data.repository.CrudRepository;

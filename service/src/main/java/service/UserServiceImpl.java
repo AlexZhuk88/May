@@ -3,13 +3,16 @@ package service;
 import converter.UserDetailsConverter;
 import lombok.RequiredArgsConstructor;
 
+import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import repository.UserProRepo.UserProRepository;
+import repository.userProRepo.UserProRepository;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,6 +27,11 @@ public class UserServiceImpl implements UserService {
         return userProRepository.findByEmail(email)
                 .map(detailsConverter::convert)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    public User findUser (String email){
+        return userProRepository.findByEmail(email).get();
+
     }
 }
 

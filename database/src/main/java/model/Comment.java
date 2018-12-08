@@ -1,8 +1,8 @@
 package model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Embedded;
@@ -18,7 +18,8 @@ import javax.persistence.Table;
 
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@ToString(exclude = {"user", "timing"})
+//@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @Entity
 @Table(name = "comment", schema = "smay_db")

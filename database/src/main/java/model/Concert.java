@@ -8,7 +8,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-//@ToString(exclude = {"groop", "concertPlace"})
+@ToString(exclude = {"groop", "concertPlace", "timing"})
 @Entity
 @Builder
 @Table(name = "concert", schema = "smay_db")

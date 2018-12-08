@@ -1,4 +1,4 @@
-package repository.ConcertPlaceRepo;
+package repository.concertPlaceRepo;
 
 public interface CustomConcertPlaceRepository {
 

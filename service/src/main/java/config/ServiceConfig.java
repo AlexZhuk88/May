@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan("service")
+@ComponentScan({"service", "converter"})
 @EnableTransactionManagement
 @Import(PersistenceConfig.class)
 public class ServiceConfig {

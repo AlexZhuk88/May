@@ -1,4 +1,4 @@
-package repository.ConcertPlaceRepo;
+package repository.concertPlaceRepo;
 
 import model.ConcertPlace;
 import org.springframework.data.repository.CrudRepository;

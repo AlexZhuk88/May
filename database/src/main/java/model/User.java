@@ -7,22 +7,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ToString(exclude = "setMeeting")
+@ToString(exclude = {"setMeeting","setNews"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -40,6 +32,7 @@ public class User extends BaseEntity<Long> {
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "user")

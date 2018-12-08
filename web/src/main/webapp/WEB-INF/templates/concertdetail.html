@@ -49,7 +49,7 @@
                     <p th:text="${concert.discription}"></p>
                 </div>
             </div>
-            <!--<c:forEach var="comment" items="${requestScope.comments}">-->
+            <!--<div th:each="commentIn: ${comments}">-->
                 <!--<div class="jumbotron" style="padding: 0em; margin: 0em">-->
                     <!--<c:if test="${sessionScope.user.id eq comment.idUser}">-->
                         <!--<p class="text-danger">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
@@ -73,19 +73,38 @@
                 <!--</div>-->
             <!--</c:forEach>-->
 
-            <!--<form action="${pageContext.request.contextPath}/concert-details?username=${sessionScope.user.id}&idconcert=${requestScope.concert.id}"-->
-                  <!--method="post">-->
-                <!--<div class="input-group">-->
-                    <!--<input type="text" class="form-control" name="comment" placeholder="Добавить комментарий"-->
-                           <!--aria-label="Добавить комментарий" aria-describedby="button-addon4">-->
-                    <!--<div class="input-group-append" id="button-addon4">-->
-                        <!--<button class="btn btn-outline-secondary" type="submit">-->
-                            <!--<fmt:message key="submit.label"/>-->
-                        <!--</button>-->
-                    <!--</div>-->
-                <!--</div>-->
 
-            <!--</form>-->
+            <div th:each="comment: ${comments}">
+                <div class="card">
+                    <div class="card-body">
+                        <span th:text="${comment.user.username}">Username</span>
+                        &nbsp(<span th:text="${comment.timing.date}">Date</span>
+                        <span th:text="${concert.timing.time}">Time</span>):&nbsp
+                        <span th:text="${comment.discription}">Discription</span>
+                        <!--<a th:href="@{/concertdetail(concertId=${concert.id})}"-->
+                           <!--class="btn btn-outline-primary">-->
+                            <!--Подробнее...-->
+                        <!--</a><br>-->
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <form th:action="@{/concertdetail(concertId=${concert.id})}" method="post" th:object="${commentform}">
+
+                <div class="input-group">
+                    <input type="text" class="form-control" name="comment" placeholder="Добавить комментарий"
+                           aria-label="Добавить комментарий" aria-describedby="button-addon4" th:field="*{discription}">
+                    <div class="input-group-append" id="button-addon4">
+
+
+                        <button class="btn btn-outline-secondary" type="submit">
+                           Отправить
+                        </button>
+                    </div>
+                </div>
+            </form>
+
         </div>
         <div class="col-md-2" style="height: 100%"></div>
     </div>

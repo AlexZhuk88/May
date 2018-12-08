@@ -1,22 +1,22 @@
 package mvc.controller;
 
+import dto.CommentDto;
 import dto.ConcertDtoFullInfo;
 import dto.ConcertFilterDto;
 import lombok.RequiredArgsConstructor;
-import model.Concert;
-import model.ConcertPlace;
-import model.Groop;
-import model.Timing;
+import model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import service.ConcertPlaceService;
-import service.ConcertService;
-import service.GroopService;
+import service.*;
 import util.DateFormater;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,10 +28,18 @@ public class ConcertController {
     private final ConcertService concertService;
     private final GroopService groopService;
     private final ConcertPlaceService concertPlaceService;
+    private final CommentService commentService;
+    private final UserProService userService;
 
     @ModelAttribute("allGroop")
     public List<String> getGroop() {
         return concertService.findAllGroop();
+    }
+
+    @ModelAttribute("user")
+    public UserDetails getCurrentUser() {
+        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        model.addAttribute("user", userDetails);
     }
 
     @GetMapping("/concertview")
@@ -92,10 +100,22 @@ public class ConcertController {
     }
 
     @GetMapping("/concertdetail")
-    public String getConcertDetail(Model model, @RequestParam(value = "concertId") String concertId) {
+    public String getConcertDetail(Model model, @RequestParam(value = "concertId", required = false) String concertId) {
         Optional<Concert> concert = concertService.findById(Long.valueOf(concertId));
+        List<ConcertComment> listComments = commentService.findAllComments(concert.get());
         model.addAttribute("concert", concert.get());
+        model.addAttribute("comments", listComments);
+        model.addAttribute("commentform", new CommentDto());
         return "concertdetail";
+    }
+
+    @PostMapping("/concertdetail")
+    public String saveComment(CommentDto commentform, @RequestParam(value = "concertId", required = false) String concertId) {
+        Concert concert = concertService.findById(Long.valueOf(concertId)).get();
+        User user = userService.findById(getCurrentUser().getUsername());
+        ConcertComment concertComment = new ConcertComment(user, Timing.of(LocalDate.now(), LocalTime.now()), commentform.getDiscription(), concert);
+        commentService.saveComment(concertComment);
+        return "redirect:/concertdetail?concertId=" + concertId;
     }
 }
 

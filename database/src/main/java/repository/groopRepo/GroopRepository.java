@@ -1,4 +1,4 @@
-package repository.GroopRepo;
+package repository.groopRepo;
 
 import model.Groop;
 import org.springframework.data.repository.CrudRepository;

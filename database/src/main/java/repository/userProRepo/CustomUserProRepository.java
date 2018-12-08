@@ -1,4 +1,4 @@
-package repository.UserProRepo;
+package repository.userProRepo;
 
 public interface CustomUserProRepository {
 
