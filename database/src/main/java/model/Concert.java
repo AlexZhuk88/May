@@ -11,6 +11,7 @@ import javax.persistence.*;
 @ToString(exclude = {"groop", "concertPlace", "timing"})
 @Entity
 @Builder
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "concert", schema = "smay_db")
 public class Concert extends BaseEntity<Long> {
 

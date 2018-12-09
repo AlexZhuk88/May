@@ -7,13 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -22,6 +16,7 @@ import javax.persistence.Table;
 @ToString(exclude = "concert")
 @Entity
 @Builder
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "concertplace", schema = "smay_db")
 public class ConcertPlace extends BaseEntity<Long> {
 

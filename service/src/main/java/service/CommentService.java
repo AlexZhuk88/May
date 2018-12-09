@@ -17,31 +17,17 @@ public class CommentService {
 
     private final ConcertCommentRepository concertCommentRepository;
 
-
-//    public Optional<Concert> findById(Long id){
-//        return concertRepository.findById(id);
-//    }
-
+    @Transactional
     public List<ConcertComment> findAllComments(Concert concert) {
         return concertCommentRepository.findByConcert(concert);
     }
-
+    @Transactional
     public void saveComment(ConcertComment comment){
         concertCommentRepository.save(comment);
     }
-
-//    public List<String> findAllGroop() {
-//        return concertRepository.findAllGroopy();
-//    }
-
-//    public Concert saveConcert(Concert concert){
-//        Concert concertSaved = concertRepository.save(concert);
-//        return concertSaved;
-//    }
-//
-//    public void saveConcertPlace(ConcertPlace concertPlace){
-//        concertPlaceRepository.save(concertPlace);
-//    }
-
+    @Transactional
+    public void deleteCommentByConcertId(Long id){
+        concertCommentRepository.deleteAllByConcertId(id);
+    }
 
 }

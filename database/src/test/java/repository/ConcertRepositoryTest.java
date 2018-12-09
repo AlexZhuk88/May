@@ -2,6 +2,7 @@ package repository;
 
 import config.TestConfiguration;
 import model.Concert;
+import model.ConcertPlace;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import repository.concertPlaceRepo.ConcertPlaceRepository;
 import repository.concertRepo.ConcertRepository;
 import repository.userProRepo.UserProRepository;
 import util.DatabaseHelper;
@@ -33,6 +35,9 @@ public class ConcertRepositoryTest {
     @Autowired
     private ConcertRepository concertRepository;
 
+    @Autowired
+    private ConcertPlaceRepository concertPlaceRepository;
+
     @Before
     public void init() {
         databaseHelper.cleanDatabase();
@@ -44,6 +49,10 @@ public class ConcertRepositoryTest {
         Concert concert = concertRepository.findByConcertName("Концерт№101");
         Assert.assertNotNull(concert);
     }
+
+
+
+
 
     @Test
     public void checkCount() {

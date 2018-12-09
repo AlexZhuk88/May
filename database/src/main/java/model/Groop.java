@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Builder
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "groop", schema = "smay_db")
 public class Groop extends BaseEntity<Long> {
 

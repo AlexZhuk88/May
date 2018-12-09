@@ -3,6 +3,7 @@ import config.ServiceConfig;
 import mvc.configuration.SecurityConfig;
 import mvc.configuration.WebConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import javax.servlet.ServletRegistration;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -18,5 +19,11 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     protected String[] getServletMappings() {
         return new String[]{SERVLET_MAPPING};
+    }
+
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
     }
 }

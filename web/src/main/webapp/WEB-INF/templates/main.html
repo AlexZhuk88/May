@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="js/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
+    <title>Title</title>
+    <link href='style.css' type='text/css' rel='stylesheet'/>
+</head>
+<body background="../images/primer-img.jpg)">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <b>"СРАЗУ МАЙ"</b>
+
+    <div class="collapse navbar-collapse" id="navbar1">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/main}">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/concertview}">Концерты</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/newsview}">Новости</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/contact}">Контакты</a>
+            </li>
+        </ul>
+    </div>
+
+    <a th:text="${user.username}">
+    </a>&nbsp;
+    <div th:fragment="logout">
+        <form th:action="@{/logout}" th:method="post">
+            <input type="submit" th:value="Logout">
+        </form>
+    </div>
+</nav>
+
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+<!--<div>-->
+<!--<b>"Admin Mode"</b>-->
+<!--<div class="collapse navbar-collapse" id="navbar1">-->
+<!--<ul class="navbar-nav mr-auto mt-2 mt-lg-0">-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link" th:href="@{/main}">Редактировать:</a>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link" th:href="@{/concertmanager}">Концерты</a>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link" th:href="@{/newsmanager}">Новости</a>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link" th:href="@{/commentmanager}">Комменты</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div th:fragment="logout" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--<form  th:action="@{/logout}" th:method="post">-->
+<!--<input type="submit" th:value="Logout">-->
+<!--</form>-->
+<!--</div>-->
+<!--</nav>-->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" style="height: 100%"></div>
+        <div class="col-md-8" style="height: 100%">
+            <div class="jumbotron" style="margin: 2em; padding: 2em">
+                <!--<img src="../pictures/cool2.jpg" class="img-fluid " style="margin: 0.1%; padding: 0.1%"-->
+                <!--th:src="@{/pictures/cool2.jpg}"-->
+                <!--alt="Responsive image">-->
+                <p style="margin: 0.2%">Это не рок-группа в привычном понимании.
+                    "СРАЗУ МАЙ" уже взрослые мальчики и не рвут глотку в попытках кому-то что-то доказать, призвать,
+                    повести за собой. Никакого мрачного рок-накачивания толпы, ни одной безнадежной песни. Они
+                    действительно переболели где-то вне эфира подростковостью и мир их не черно-бел а, как и на самом
+                    деле, в крапинку.
+                    Близкие, осязаемо-эмоциональные песни с чуть смущенной мужской лирикой. Они - в хорошем смысле -
+                    взрослые люди и не ждите, что "СРАЗУ МАЙ" будут снимать футболки и орать матом, чтобы их услышали.
+                    Они способны все сказать без лютой экспрессии, хотя иногда на концертах возникает ощущение, что
+                    ребята способны на ядерный взрыв, правда нам его никогда не покажут.
+                    Их творчество небезупречно, но с тем же успехом можно без памяти полюбить фотографию с заваленным
+                    горизонтом, потому что она прекрасна и точка!
+                    Точная, эстетская музыка, завязанная на истинно мужской силе и уверенности в себе и своем деле, в
+                    своих словах и песнях - редкое, дорогое, приятное впечатление от людей.</p>
+            </div>
+            <div>
+
+                <div class="row">
+                    <div class="col-md-6" style="height: max-content">
+                        <div class="card-group" style="margin: 0em; padding-top: 1em">
+                            <div class="card-group" style="margin: 0em; padding-top: 1em">
+                                <div class="card bg-light mb-3" style="margin: 0em; padding: 1em">
+                                    <img class="card" src="../../pictures/concertimg.jpg" height="100" width="100"
+                                         style="margin: 0.1%; padding: 0.1%"
+                                         alt="Responsive image">
+                                </div>
+                                <div class="card bg-light mb-3" style="margin: 0em; padding: 1em">
+                                    <h5>Количество концертов: </h5>
+                                    <H4 style="color: crimson" th:text="${countConcert}"></H4><br>
+                                </div>
+                                <div class="card bg-light mb-3" style="margin: 0em; padding: 1em">
+                                    <h5>Количество комментариев: </h5>
+                                    <H4 style="color: lightseagreen" th:text="${countConcertComment}"></H4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="height: max-content">
+                        <div class="card-group" style="margin: 0em; padding-top: 1em">
+                            <div class="card-group" style="margin: 0em; padding-top: 1em">
+                                <div class="card bg-light mb-3" style="margin: 0em; padding: 1em">
+                                    <img class="card" src="../../pictures/new.jpg" height="100" width="100"
+                                         style="margin: 0.1%; padding: 0.1%"
+                                         alt="Responsive image">
+                                </div>
+                                <div class="card bg-light mb-3" style="margin: 0em; padding: 1em">
+                                    <h5>Количество новостей: </h5>
+                                    <H4 style="color: crimson" th:text="${countNew}"></H4><br>
+                                </div>
+                                <div class="card bg-light mb-3" style="margin: 0em; padding: 1em">
+                                    <h5>Количество комментариев: </h5>
+                                    <H4 style="color: lightseagreen" th:text="${countNewsComment}"></H4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-2" style="height: 100%"></div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

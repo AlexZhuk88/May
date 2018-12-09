@@ -13,7 +13,7 @@ import repository.concertPlaceRepo.ConcertPlaceRepository;
 public class ConcertPlaceService {
 
     private final ConcertPlaceRepository concertPlaceRepository;
-
+    @Transactional
     public void saveConcertPlace(ConcertPlace concertPlace){
         concertPlaceRepository.save(concertPlace);
     }

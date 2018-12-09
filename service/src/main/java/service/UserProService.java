@@ -20,7 +20,7 @@ public class UserProService {
         User userSaved = userProRepository.save(user);
         return userSaved;
     }
-
+    @Transactional
     public User findById (String email){
         return userProRepository.findByEmail(email).get();
     }

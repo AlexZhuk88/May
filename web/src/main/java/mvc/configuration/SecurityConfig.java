@@ -34,11 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/concertview", true)
+                .defaultSuccessUrl("/main", true)
                 .and()
                 .logout()
                 .and()
-                .csrf().disable()
+//                .csrf().disable()
                 .logout();
 
         http

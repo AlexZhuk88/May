@@ -19,6 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Builder
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "user", schema = "smay_db")
 public class User extends BaseEntity<Long> {
 

@@ -14,7 +14,7 @@ import repository.groopRepo.GroopRepository;
 public class GroopService {
 
     private final GroopRepository groopRepository;
-
+    @Transactional
     public Groop findByName(String name) {
         return groopRepository.findByGroopname(name);
     }

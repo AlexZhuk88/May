@@ -43,14 +43,14 @@ public class ConcertController {
     }
 
     @GetMapping("/concertview")
-    public String greeting(Model model, @RequestParam(value = "pagin", required = false) String paginIn,
-                           @RequestParam(value = "numPage", required = false) String numPageIn,
-                           @RequestParam(value = "place", required = false) String placeIn,
-                           @RequestParam(value = "city", required = false) String cityIn,
-                           @RequestParam(value = "groop", required = false) String groopIn
+    public String concertview(Model model, @RequestParam(value = "pagin", required = false) String paginIn,
+                              @RequestParam(value = "numPage", required = false) String numPageIn,
+                              @RequestParam(value = "place", required = false) String placeIn,
+                              @RequestParam(value = "city", required = false) String cityIn,
+                              @RequestParam(value = "groop", required = false) String groopIn
     ) {
 
-        Integer pagin = paginIn == null ? 5 : Integer.valueOf(paginIn);
+        Integer pagin = paginIn == null ? 3 : Integer.valueOf(paginIn);
         Integer numPage = numPageIn == null ? 1 : Integer.valueOf(numPageIn);
         String place = placeIn == null ? "Все места" : placeIn;
         String city = cityIn == null ? "Все города" : cityIn;
@@ -74,8 +74,36 @@ public class ConcertController {
     }
 
     @GetMapping("/concertmanager")
-    public String getconcertManager(Model model) {
+    public String getconcertManager(Model model, @RequestParam(value = "pagin", required = false) String paginIn,
+                                    @RequestParam(value = "numPage", required = false) String numPageIn,
+                                    @RequestParam(value = "place", required = false) String placeIn,
+                                    @RequestParam(value = "city", required = false) String cityIn,
+                                    @RequestParam(value = "groop", required = false) String groopIn
+    ) {
+
+        Integer pagin = paginIn == null ? 3 : Integer.valueOf(paginIn);
+        Integer numPage = numPageIn == null ? 1 : Integer.valueOf(numPageIn);
+        String place = placeIn == null ? "Все места" : placeIn;
+        String city = cityIn == null ? "Все города" : cityIn;
+        String groop = groopIn == null ? "Все группы" : groopIn;
+
+        ConcertFilterDto concertFilterDto = concertService.prepareConcertPage(pagin, numPage, place, city, groop);
+        Double countPage = Math.ceil((double) concertFilterDto.getCountConcert() / pagin);
+
+        model.addAttribute("place", place);
+        model.addAttribute("city", city);
+        model.addAttribute("groop", groop);
+        model.addAttribute("pagin", pagin);
+        model.addAttribute("numPage", numPage);
+        model.addAttribute("countPage", countPage);
+        model.addAttribute("concerts", concertFilterDto.getListConcert());
+        model.addAttribute("places", concertFilterDto.getListPlace());
+        model.addAttribute("cities", concertFilterDto.getListCity());
+        model.addAttribute("groops", concertFilterDto.getListGroop());
+
+
         model.addAttribute("savedConcert", new ConcertDtoFullInfo());
+        model.addAttribute("updatedConcert", new ConcertDtoFullInfo());
         return "concertmanager";
     }
 
@@ -99,6 +127,15 @@ public class ConcertController {
         return "redirect:/concertmanager";
     }
 
+    @PostMapping("/concertupdate")
+    public String updateConcert(ConcertDtoFullInfo dtoConcert,@RequestParam(value = "concertId", required = false) String concertId) {
+        Groop groop = groopService.findByName(dtoConcert.getGroopname());
+
+        concertService.updateConcertPlace(Long.valueOf(concertId),dtoConcert.getCity(),dtoConcert.getPlace(),dtoConcert.getEntrance());
+        concertService.updateConcert(Long.valueOf(concertId),dtoConcert.getConcertName(),dtoConcert.getDiscription(),DateFormater.formatTime(dtoConcert.getTime()),DateFormater.formatDate(dtoConcert.getDate()),groop.getId());
+        return "redirect:/concertmanager";
+    }
+
     @GetMapping("/concertdetail")
     public String getConcertDetail(Model model, @RequestParam(value = "concertId", required = false) String concertId) {
         Optional<Concert> concert = concertService.findById(Long.valueOf(concertId));
@@ -107,6 +144,20 @@ public class ConcertController {
         model.addAttribute("comments", listComments);
         model.addAttribute("commentform", new CommentDto());
         return "concertdetail";
+    }
+
+    @GetMapping("/concertdelete")
+    public String getConcertDelete(Model model, @RequestParam(value = "concertId", required = false) String concertId) {
+        commentService.deleteCommentByConcertId(Long.valueOf(concertId));
+        concertService.deleteConcert(Long.valueOf(concertId));
+        return "redirect:/concertmanager";
+    }
+
+    @GetMapping("/concertupdate")
+    public String getConcertUpdate(Model model, @RequestParam(value = "concertId", required = false) String concertId) {
+        commentService.deleteCommentByConcertId(Long.valueOf(concertId));
+        concertService.deleteConcert(Long.valueOf(concertId));
+        return "redirect:/concertmanager";
     }
 
     @PostMapping("/concertdetail")

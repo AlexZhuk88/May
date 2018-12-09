@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -13,31 +13,53 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <b>"СРАЗУ МАЙ"</b>
-
-    <div class="collapse navbar-collapse" id="navbar1">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/main}">Главная</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/concertview}">Концерты</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" th:href="@{/newsview}">Новости</a>
-        </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/contact}">Контакты</a>
-            </li>
-        </ul>
+    <div>
+        <b>"СРАЗУ МАЙ"</b>
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/main}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/concertview}">Концерты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/newsview}">Новости</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/contact}">Контакты</a>
+                </li>
+            </ul>
+        </div>
+        <a th:text="${user.username}">
+        </a>&nbsp;
+        <div th:fragment="logout">
+            <form th:action="@{/logout}" th:method="post">
+                <input type="submit" th:value="Logout">
+            </form>
+        </div>
     </div>
+</nav>
 
-    <a th:text="${user.username}">
-    </a>&nbsp;
-    <div th:fragment="logout">
-        <form th:action="@{/logout}" th:method="post">
-            <input type="submit" th:value="Logout">
-        </form>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div>
+        <b>"Admin Mode"</b>
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/main}">Редактировать:</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/concertmanager}">Концерты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/newsmanager}">Новости</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/commentmanager}">Комменты</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 
