@@ -8,7 +8,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "groop")
+@ToString(exclude = {"groop", "concertPlace", "timing"})
 @Entity
 @Builder
 @Table(name = "concert", schema = "smay_db")
@@ -20,11 +20,11 @@ public class Concert extends BaseEntity<Long> {
 
     private String concertName;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "groop_id")
     private Groop groop;
 
-    @OneToOne(mappedBy = "concert")
+    @OneToOne(mappedBy = "concert", cascade = CascadeType.ALL)
     private ConcertPlace concertPlace;
 
     private String discription;

@@ -2,20 +2,15 @@ package model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
+@ToString(exclude = "setConcert")
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "setConcert")
 @Entity
 @Builder
 @Table(name = "groop", schema = "smay_db")
@@ -29,7 +24,7 @@ public class Groop extends BaseEntity<Long> {
 
     private String discription;
 
-    @OneToMany(mappedBy = "groop")
+    @OneToMany(mappedBy = "groop", fetch = FetchType.LAZY)
     private Set<Concert> setConcert = new HashSet<>();
 
 }

@@ -1,20 +1,7 @@
 package service;
 
-import dao.userprofile.UserDaoImpl;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import model.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserService {
+public interface UserService extends UserDetailsService {
 
-    private static final UserService INSTANCE = new UserService();
-
-    public User getUserById(Long id) {
-        return UserDaoImpl.getInstance().find(id);
-    }
-
-    public static UserService getInstance() {
-        return INSTANCE;
-    }
 }

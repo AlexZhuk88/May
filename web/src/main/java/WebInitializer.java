@@ -1,4 +1,6 @@
-import config.PersistenceConfig;
+
+import config.ServiceConfig;
+import mvc.configuration.SecurityConfig;
 import mvc.configuration.WebConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -7,7 +9,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     private static final String SERVLET_MAPPING = "/";
 
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{PersistenceConfig.class};
+        return new Class[]{ServiceConfig.class, SecurityConfig.class};
     }
 
     protected Class<?>[] getServletConfigClasses() {

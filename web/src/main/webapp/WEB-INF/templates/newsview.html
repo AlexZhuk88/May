@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Title</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <b>"СРАЗУ МАЙ"</b>
+
+    <div class="collapse navbar-collapse" id="navbar1">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/main}">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/concertview}">Концерты</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/newsview}">Новости</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/contact}">Контакты</a>
+            </li>
+        </ul>
+    </div>
+
+    <a th:text="${user.username}">
+    </a>&nbsp;
+    <div th:fragment="logout">
+        <form th:action="@{/logout}" th:method="post">
+            <input type="submit" th:value="Logout">
+        </form>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" style="height: 100%">
+            <br><h5 align="center">Filters</h5><br>
+            <form action="/newsview" method="get">
+                <label for="pagin">Number of element on one page:</label>
+                <input type="text" style="width: 5em" class="form-control" name="pagin" id="pagin"
+                       th:value="${pagin}"><br>
+                <label for="author">Автор:</label>
+
+                <select class="form-control" name="author" id="author">
+                    <div th:each="authorIn: ${authors}">
+                        <div th:if="${authorIn}eq${author}">
+                            <option selected th:value="${authorIn}" th:text="${authorIn}">Author selected</option>
+                        </div>
+                        <div th:if="${authorIn}!=${author}">
+                            <option th:value="${authorIn}" th:text="${authorIn}">Author</option>
+                        </div>
+                    </div>
+                </select><br>
+
+                <label for="starttime">Start period:</label>
+                <input type="date" class="form-control" name="starttime" id="starttime" th:value="${starttime}"><br>
+
+                </input><br>
+                <label for="endtime">End period:</label>
+                <input type="date" class="form-control" name="endtime" id="endtime" th:value="${endtime}"><br>
+
+                </select><br>
+                <button type="submit" class="btn btn-outline-primary">Find by filters</button>
+            </form>
+        </div>
+        <div class="col-md-8" style="height: 100%">
+            <br>
+            <div th:each="thenew: ${thenews}">
+                <div class="card">
+                    <h5 class="card-header" th:text="${thenew.newsname}">Новость</h5>
+                    <div class="card-body">
+                        Группа: <span th:text="${thenew.discription}">Описание</span><br>
+                        Место: <span th:text="${thenew.timing.date}">Дата</span><br>
+                        Город: <span th:text="${thenew.timing.time}">Время</span><br>
+                        <!--<a th:href="@{/concertdetail(concertId=${concert.id})}"-->
+                           <!--class="btn btn-outline-primary">-->
+                            <!--Подробнее...-->
+                        <!--</a><br>-->
+                    </div>
+                </div>
+                <br>
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+
+                    <div th:each="i: ${#numbers.sequence( 1, __${countPage}__)}">
+                        <li class="page-item"><a class="page-link"
+                                                 th:href="@{/newsview(numPage=${i},pagin=${pagin},endtime=${endtime},starttime=${starttime},author=${author})}" th:text="${i}"></a>
+                        </li>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-2" style="height: 100%">
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
