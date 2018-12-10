@@ -14,6 +14,9 @@ public interface ConcertCommentRepository extends CrudRepository<ConcertComment,
 
     void deleteAllByConcertId(Long id);
 
+    @Query(value = "select count(*) from smay_db.comment where smay_db.comment.concert_id=:id;", nativeQuery = true)
+    Long findCountCommentByConcert(@Param("id") Long id);
+
 }
 
 

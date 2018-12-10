@@ -112,7 +112,7 @@
                                         <div class="card-body text-success">
                                             <label for="concertName">Название:
                                                 <input type="text" class="form-control" name="name" id="concertName"
-                                                       th:field="*{concertName}">
+                                                       th:field="*{concertName}" required>
                                             </label><br>
                                             <label for="groop">Группа:
                                                 <div class="groop">
@@ -134,11 +134,11 @@
                                         <div class="card-body text-success">
                                             <label for="data">Дата:
                                                 <input type="date" class="form-control" name="data" id="data"
-                                                       th:field="*{date}">
+                                                       th:field="*{date}" required>
                                             </label><br>
                                             <label for="time">Время:
                                                 <input type="time" class="form-control" name="time" id="time"
-                                                       th:field="*{time}">
+                                                       th:field="*{time}" required>
                                             </label><br>
                                         </div>
                                     </div>
@@ -148,11 +148,11 @@
                                         <div class="card-body text-success">
                                             <label for="city">Город:
                                                 <input type="text" class="form-control" name="city" id="city"
-                                                       th:field="*{city}">
+                                                       th:field="*{city}" required>
                                             </label><br>
                                             <label for="place">Место:
                                                 <input type="text" class="form-control" name="place" id="place"
-                                                       th:field="*{place}">
+                                                       th:field="*{place}" required>
                                             </label><br>
                                         </div>
                                     </div>
@@ -162,11 +162,11 @@
                                         <div class="card-body text-success">
                                             <label for="entrance">Вход:
                                                 <input type="text" class="form-control" name="entrance" id="entrance"
-                                                       th:field="*{entrance}">
+                                                       th:field="*{entrance}" required>
                                             </label><br>
                                             <label for="description">Описание:
                                                 <input type="text" class="form-control" name="description" id="description"
-                                                       th:field="*{discription}">
+                                                       th:field="*{discription}" required>
                                             </label><br>
                                         </div>
                                     </div>
@@ -212,7 +212,7 @@
                                                 <div class="card-body text-secondary">
                                                     <label for="concertName">Название:
                                                         <input type="text" class="form-control" name="name" id="concertName" th:placeholder="${concert.concertName}"
-                                                               th:field="*{concertName}">
+                                                               th:field="*{concertName}" required>
                                                     </label><br>
                                                     <label for="groop">Группа:
                                                         <div class="groop">
@@ -234,11 +234,11 @@
                                                 <div class="card-body text-info">
                                                     <label for="data">Дата:
                                                         <input type="date" class="form-control" name="data" id="data" th:placeholder="${concert.timing.date}"
-                                                               th:field="*{date}">
+                                                               th:field="*{date}" required>
                                                     </label><br>
                                                     <label for="time">Время:
                                                         <input type="time" class="form-control" name="time" id="time" th:placeholder="${concert.timing.time}"
-                                                               th:field="*{time}">
+                                                               th:field="*{time}" required>
                                                     </label><br>
                                                 </div>
                                             </div>
@@ -248,11 +248,11 @@
                                                 <div class="card-body text-secondary">
                                                     <label for="city">Город:
                                                         <input type="text" class="form-control" name="city" id="city" th:placeholder="${concert.concertPlace.city}"
-                                                               th:field="*{city}">
+                                                               th:field="*{city}" required>
                                                     </label><br>
                                                     <label for="place">Место:
                                                         <input type="text" class="form-control" name="place" id="place" th:placeholder="${concert.concertPlace.place}"
-                                                               th:field="*{place}">
+                                                               th:field="*{place}" required>
                                                     </label><br>
                                                 </div>
                                             </div>
@@ -262,11 +262,11 @@
                                                 <div class="card-body text-secondary">
                                                     <label for="entrance">Вход:
                                                         <input type="text" class="form-control" name="entrance" id="entrance" th:placeholder="${concert.concertPlace.entrance}"
-                                                               th:field="*{entrance}">
+                                                               th:field="*{entrance}" required>
                                                     </label><br>
                                                     <label for="description">Описание:
                                                         <input type="text" class="form-control" name="description" id="description" th:placeholder="${concert.discription}"
-                                                               th:field="*{discription}">
+                                                               th:field="*{discription}" required>
                                                     </label><br>
                                                 </div>
                                             </div>

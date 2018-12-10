@@ -57,6 +57,13 @@ public class MainController {
     public String getContact(Model model) {
         return "contact";
     }
+
+    @GetMapping("/commentdelete")
+    public String getConcertDelete(Model model, @RequestParam(value = "commentId", required = false) String commentId,
+                                                @RequestParam(value = "concertId", required = false) String concertId) {
+        commentService.deleteComment(Long.valueOf(commentId));
+        return "redirect:/concertdetail?concertId=" + concertId;
+    }
 }
 
 

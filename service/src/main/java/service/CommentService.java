@@ -25,9 +25,18 @@ public class CommentService {
     public void saveComment(ConcertComment comment){
         concertCommentRepository.save(comment);
     }
+
     @Transactional
     public void deleteCommentByConcertId(Long id){
         concertCommentRepository.deleteAllByConcertId(id);
     }
 
+    @Transactional
+    public Long findCountComentByConcert(Long id){
+        return concertCommentRepository.findCountCommentByConcert(id);
+    }
+
+    public void deleteComment(Long id){
+        concertCommentRepository.deleteById(id);
+    }
 }

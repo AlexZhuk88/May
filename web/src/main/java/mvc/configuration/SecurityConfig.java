@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers("/concertmanager")
                 .hasAnyAuthority("ADMIN")
-                .antMatchers("/login")
+                .antMatchers("/login","/saveus")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

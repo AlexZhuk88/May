@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,25 +12,81 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <title>Title</title>
 </head>
 <body>
+<br><br><br><br><br><br><br><br><br><br><br>
+<div class="col-md-12" style="height: 50%; display: flex; align-items: center; justify-content: center">
+    <form th:action="@{/login}" th:method="post">
+        <div class="form-group">
+            <label for="username">Введите e-mail:</label>
+            <input type="email" style="width: 15em" class="form-control" id="username" required
+                   aria-describedby="emailHelp"
+                   placeholder="Ivan@mail.ru" name="username">
+        </div>
+        <div class="form-group">
+            <label for="password">
+                Введите пароль:</label>
+            <input type="password" style="width: 15em" class="form-control" id="password" placeholder="Ivan2018"
+                   required
+                   name="password">
+        </div>
+        <button type="submit" class="btn btn-outline-primary">
+            Войти
+        </button>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12" style="height: 100%; display: flex; align-items: center; justify-content: center">
-            <form th:action="@{/login}" th:method="post">
-                <label for="username">
-                    <span>Username: </span>
-                    <input class="form-control" id="username" type="text" name="username">
-                </label>
-                <label for="password">
-                    <span>Password: </span>
-                    <input class="form-control" id="password" type="password" name="password">
-                </label>
-                <input type="submit" class="btn btn-outline-primary">
-            </form>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModalCenter">
+            Зарегистрироваться
+        </button>
+        &nbsp;&nbsp;
+
+
+    </form>
+
+    <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
+    <!--<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter">-->
+    <!--Зарегистрироваться-->
+    <!--</button>-->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Добро пожаловать!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <section>
+                        <form th:action="@{/saveus}" method="post" th:object="${dto}">
+
+                            <label for="username1">
+                                Имя:
+                                <input type="text" style="width: 15em" class="form-control" name="username1"
+                                       id="username1" placeholder="Ivan" th:field="*{username}" required>
+                            </label><br>
+
+
+                            <label for="email1">
+                                Email:
+                                <input type="email" style="width: 15em" class="form-control" name="email1" id="email1"
+                                       placeholder="Ivan@mail.ru" required th:field="*{email}">
+                            </label><br>
+                            <label for="password1">
+                                Пароль:
+                                <input type="password" style="width: 15em" class="form-control" name="password1"
+                                       id="password1" placeholder="Ivan2018" required th:field="*{password}">
+                            </label><br>
+                            <br>
+                            <input class="btn btn-outline-primary" type="submit" value="Создать">
+                        </form>
+                    </section>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -4,7 +4,8 @@ create table smay_db.user (
   id       bigserial primary key,
   username character varying(256) unique not null,
   email    character varying(256),
-  password character varying(128)
+  password character varying(128),
+  role     character varying(128)
 );
 
 create table smay_db.news (
@@ -72,21 +73,26 @@ drop table smay_db.concert;
 drop table smay_db.groop;
 
 
-
-
-
-insert into smay_db.user (username, email, password)
-values ('Alex', 'Alex@mail.ru', '111'),
-       ('Bill', 'Bill@mail.ru', '111'),
-       ('Sveta', 'Sveta@mail.ru', '111'),
-       ('Dima', 'Dima@mail.ru', '111'),
-       ('Olga', 'Olga@mail.ru', '111');
+insert into smay_db.user (username, email, password, role)
+values ('Alex', 'Alex@mail.ru', '111', 'ADMIN'),
+       ('Bill', 'Bill@mail.ru', '111', 'USER'),
+       ('Sveta', 'Sveta@mail.ru', '111', 'USER'),
+       ('Dima', 'Dima@mail.ru', '111', 'USER'),
+       ('Olga', 'Olga@mail.ru', '111', 'USER');
 
 insert into smay_db.news (newsname, date, time, discription, author_id)
-values ('Новость1', '2018-11-11', '13:12:16', 'Ура!', 1),
-       ('Новость2', '2018-11-11', '13:12:16', 'Ура!', 2),
-       ('Новость3', '2018-11-11', '13:12:16', 'Ура!', 3),
-       ('Новость4', '2018-11-11', '13:12:16', 'Ура!', 4);
+values ('Новость1', '2017-11-11', '13:12:16', 'Ура!', 1),
+       ('Новость2', '2019-11-11', '13:12:16', 'Ура!', 2),
+       ('Новость3', '2020-11-11', '13:12:16', 'Ура!', 3),
+       ('Новость4', '2018-11-11', '13:12:16', 'Ура!', 4),
+       ('Новость5', '2020-11-11', '13:12:16', 'Ура!', 1),
+       ('Новость6', '2019-11-11', '13:12:16', 'Ура!', 2),
+       ('Новость7', '2017-11-11', '13:12:16', 'Ура!', 3),
+       ('Новость8', '2019-11-11', '13:12:16', 'Ура!', 4),
+       ('Новость9', '2018-11-11', '13:12:16', 'Ура!', 1),
+       ('Новость10', '2017-11-11', '13:12:16', 'Ура!', 2),
+       ('Новость11', '2020-11-11', '13:12:16', 'Ура!', 3),
+       ('Новость12', '2018-11-11', '13:12:16', 'Ура!', 4);
 
 insert into smay_db.groop (groopname, discription)
 values ('Сразу Май', 'Брест'),
@@ -158,6 +164,3 @@ VALUES (1, 'Минск', 'Ресторан', '9 BYN'),
        (28, 'Гомель', 'Ресторан', '5 BYN'),
        (29, 'Брест', 'Кафе', '9 BYN'),
        (30, 'Гомель', 'Концернтный зал', '8 BYN');
-
--- select *
--- from smay_db.concert where ;
