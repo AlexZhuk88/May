@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import model.Concert;
 import model.QConcert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -16,7 +17,7 @@ public class CustomConcertRepositoryImpl implements CustomConcertRepository {
 
     private final EntityManager entityManager;
 
-
+    @Cacheable("concert")
         @Override
     public List<Concert> findByFilters(Integer pagin, int numPage, String place, String city, String groopName) {
         return new JPAQuery<Concert>(entityManager)
@@ -31,6 +32,7 @@ public class CustomConcertRepositoryImpl implements CustomConcertRepository {
                 .fetch();
     }
 
+    @Cacheable("concert")
     @Override
     public Long findCountPage(Integer pagin, int numPage, String place, String city, String groopName) {
         return new JPAQuery<Concert>(entityManager)

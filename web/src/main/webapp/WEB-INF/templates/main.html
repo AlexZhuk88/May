@@ -21,25 +21,30 @@
     <div class="collapse navbar-collapse" id="navbar1">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/main}">Главная</a>
+                <a class="nav-link" th:href="@{/main}" th:text="#{main.label}"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/concertview}">Концерты</a>
+                <a class="nav-link" th:href="@{/concertview}" th:text="#{concert.label}">Концерты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/newsview}">Новости</a>
+                <a class="nav-link" th:href="@{/newsview}" th:text="#{news.label}">Новости</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/contact}">Контакты</a>
+                <a class="nav-link" th:href="@{/contact}" th:text="#{contact.label}">Контакты</a>
             </li>
         </ul>
     </div>
 
-    <a th:text="${user.username}">
-    </a>&nbsp;
+    <span th:text="#{autoriz.label}+': '"></span>&nbsp;
+    <a th:text="${user.username}" style="color: green">
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div th:fragment="language">
+        <a style="color: blue" href="?language=en_US">EN</a>&nbsp;/&nbsp;
+        <a style="color: blue" href="?language=ru_RU">RU</a>
+    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div th:fragment="logout">
         <form th:action="@{/logout}" th:method="post">
-            <input type="submit" th:value="Logout">
+            <button type="submit" class="btn btn-outline-danger" th:text="#{exit.label}">Выйти</button>
         </form>
     </div>
 </nav>
@@ -75,6 +80,42 @@
     <div class="row">
         <div class="col-md-2" style="height: 100%"></div>
         <div class="col-md-8" style="height: 100%">
+
+            <div class="row">
+                <div class="col-md-2" style="height: 100%">
+
+
+                </div>
+                <div class="col-md-8" style="height: 100%">
+                    <br>
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block w-100" src="../../pictures/cool2.jpg" alt="First slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="../../pictures/concert2a.jpg" alt="Second slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="../../pictures/800-2.jpg"
+                                     alt="Third slide">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-2" style="height: 100%"></div>
+
+
+
+
             <div class="jumbotron" style="margin: 2em; padding: 2em">
                 <!--<img src="../pictures/cool2.jpg" class="img-fluid " style="margin: 0.1%; padding: 0.1%"-->
                 <!--th:src="@{/pictures/cool2.jpg}"-->
@@ -83,18 +124,13 @@
                     "СРАЗУ МАЙ" уже взрослые мальчики и не рвут глотку в попытках кому-то что-то доказать, призвать,
                     повести за собой. Никакого мрачного рок-накачивания толпы, ни одной безнадежной песни. Они
                     действительно переболели где-то вне эфира подростковостью и мир их не черно-бел а, как и на самом
-                    деле, в крапинку.
-                    Близкие, осязаемо-эмоциональные песни с чуть смущенной мужской лирикой. Они - в хорошем смысле -
+                    деле, в крапинку. Близкие, осязаемо-эмоциональные песни с чуть смущенной мужской лирикой. Они - в хорошем смысле -
                     взрослые люди и не ждите, что "СРАЗУ МАЙ" будут снимать футболки и орать матом, чтобы их услышали.
                     Они способны все сказать без лютой экспрессии, хотя иногда на концертах возникает ощущение, что
                     ребята способны на ядерный взрыв, правда нам его никогда не покажут.
-                    Их творчество небезупречно, но с тем же успехом можно без памяти полюбить фотографию с заваленным
-                    горизонтом, потому что она прекрасна и точка!
-                    Точная, эстетская музыка, завязанная на истинно мужской силе и уверенности в себе и своем деле, в
-                    своих словах и песнях - редкое, дорогое, приятное впечатление от людей.</p>
+                   </p>
             </div>
             <div>
-
                 <div class="row">
                     <div class="col-md-6" style="height: max-content">
                         <div class="card-group" style="margin: 0em; padding-top: 1em">
@@ -136,7 +172,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="col-md-2" style="height: 100%"></div>
@@ -155,5 +190,6 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
-</body>
+
+
 </html>

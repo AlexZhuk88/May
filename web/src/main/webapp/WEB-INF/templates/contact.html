@@ -17,71 +17,177 @@
     <div class="collapse navbar-collapse" id="navbar1">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/main}">Главная</a>
+                <a class="nav-link" th:href="@{/main}" th:text="#{main.label}"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/concertview}">Концерты</a>
+                <a class="nav-link" th:href="@{/concertview}" th:text="#{concert.label}">Концерты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/newsview}">Новости</a>
+                <a class="nav-link" th:href="@{/newsview}" th:text="#{news.label}">Новости</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/contact}">Контакты</a>
+                <a class="nav-link" th:href="@{/contact}" th:text="#{contact.label}">Контакты</a>
             </li>
         </ul>
     </div>
-    <a th:text="${user.username}">
-    </a>&nbsp;
+
+    <span th:text="#{autoriz.label}+': '"></span>&nbsp;
+    <a th:text="${user.username}" style="color: green">
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div th:fragment="language">
+        <a style="color: blue" href="?language=en_US">EN</a>&nbsp;/&nbsp;
+        <a style="color: blue" href="?language=ru_RU">RU</a>
+    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div th:fragment="logout">
         <form th:action="@{/logout}" th:method="post">
-            <input type="submit" th:value="Logout">
+            <button type="submit" class="btn btn-outline-danger" th:text="#{exit.label}">Выйти</button>
         </form>
     </div>
 </nav>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2" style="height: 100%">
-        </div>
-        <div class="col-md-8" style="height: 100%">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-3" style="height: 100%;margin: 0px;padding: 1px">
-                        <div class="jumbotron" style="margin: 1px; padding: 1px">
-                            <img src="../../pictures/stetsuk.jpg" class="img-fluid " style="margin: 1em; padding: 1em"
-                                 alt="Responsive image">
-                            <p style="margin: 1em;padding: 1em"> Сергей Стецюк - вокал, гитара, песни <a href="https://vk.com/slushaisvoe">...связаться</a><br></p>
-                        </div>
+<div class="accordion" id="accordionExample">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                    Сергей Стецюк
+                </button>
+            </h5>
+            <div class="row">
+                <div class="col-md-1" style="height: 100%">
+                    <div class="card bg-light mb-1" style="margin: 0em; padding: 1em">
+                        <img class="card" src="../../pictures/stetsuk.jpg"
+                             style="margin: 0.1%; padding: 0.1%; width: 100%"
+                             alt="Responsive image">
                     </div>
-                    <div class="col-md-3" style="height: 100%;margin: 0px;padding: 1px">
-                        <div class="jumbotron" style="margin: 1px; padding: 1px">
-                            <img src="../../pictures/leshuk.jpg" class="img-fluid" style="margin: 1em;padding: 1em"
-                                 alt="Responsive image">
-                            <p style="margin: 1em;padding: 1em"> Сергей Ляшук - гитара <a href="https://vk.com/liashuk_siarhei">...связаться</a><br></p>
+                </div>
+                <div class="col-md-11" style="height: 100%">
+                    <div class="card bg-light mb-5" style="margin: 0em; padding: 1em">
+
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+                                <p style="margin: 1em;padding: 1em"> Сергей Стецюк - вокал, гитара, песни <a
+                                        href="https://vk.com/slushaisvoe">...связаться</a><br></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3" style="height: 100%;margin: 0px;padding: 1px">
-                        <div class="jumbotron" style="margin: 1px; padding: 1px">
-                            <img src="../../pictures/filimonov.jpg" class="img-fluid" style="margin: 1em;padding: 1em"
-                                 alt="Responsive image">
-                            <p style="margin: 1em;padding: 1em"> Олег Филимонов - бас-гитара <a href="https://vk.com/ojlelllka">...связаться</a><br></p>
-                        </div>
-                    </div>
-                    <div class="col-md-3" style="height: 100%;margin: 0px;padding: 1px">
-                        <div class="jumbotron" style="margin: 1px; padding: 1px">
-                            <img src="../../pictures/romanuk.jpg" class="img-fluid" style="margin: 1em;padding: 1em"
-                                 alt="Responsive image">
-                            <p style="margin: 1em;padding: 1em"> Игорь Романюк - барабаны <a href="https://vk.com/id30132346">...связаться</a><br></p>
-                        </div>
+
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-2" style="height: 100%">
+
+
         </div>
     </div>
-</div>
+    <div class="card">
+        <div class="card-header" id="headingTo">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTo"
+                        aria-expanded="true" aria-controls="collapseTo">
+                    Сергей Ляшук
+                </button>
+            </h5>
+            <div class="row">
+                <div class="col-md-1" style="height: 100%">
+                    <div class="card bg-light mb-1" style="margin: 0em; padding: 1em">
+                        <img class="card" src="../../pictures/leshuk.jpg"
+                             style="margin: 0.1%; padding: 0.1%; width: 100%"
+                             alt="Responsive image">
+                    </div>
+                </div>
+                <div class="col-md-11" style="height: 100%">
+                    <div class="card bg-light mb-5" style="margin: 0em; padding: 1em">
 
+
+                        <div id="collapseTo" class="collapse show" aria-labelledby="headingTo"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+                                <p style="margin: 1em;padding: 1em"> Сергей Ляшук - гитара <a
+                                        href="https://vk.com/liashuk_siarhei">...связаться</a><br></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingTr">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTr"
+                        aria-expanded="true" aria-controls="collapseOne">
+                    Олег Филимонов
+                </button>
+            </h5>
+            <div class="row">
+                <div class="col-md-1" style="height: 100%">
+                    <div class="card bg-light mb-1" style="margin: 0em; padding: 1em">
+                        <img class="card" src="../../pictures/filimonov.jpg"
+                             style="margin: 0.1%; padding: 0.1%; width: 100%"
+                             alt="Responsive image">
+                    </div>
+                </div>
+                <div class="col-md-11" style="height: 100%">
+                    <div class="card bg-light mb-5" style="margin: 0em; padding: 1em">
+
+
+                        <div id="collapseTr" class="collapse show" aria-labelledby="headingTr"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+                                <p style="margin: 1em;padding: 1em"> Олег Филимонов - бас-гитара <a
+                                        href="https://vk.com/ojlelllka">...связаться</a><br></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingFo">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFo"
+                        aria-expanded="true" aria-controls="collapseOne">
+                    Игорь Романюк
+                </button>
+            </h5>
+            <div class="row">
+                <div class="col-md-1" style="height: 100%">
+                    <div class="card bg-light mb-1" style="margin: 0em; padding: 1em">
+                        <img class="card" src="../../pictures/romanuk.jpg"
+                             style="margin: 0.1%; padding: 0.1%; width: 100%"
+                             alt="Responsive image">
+                    </div>
+                </div>
+                <div class="col-md-11" style="height: 100%">
+                    <div class="card bg-light mb-5" style="margin: 0em; padding: 1em">
+
+
+                        <div id="collapseFo" class="collapse show" aria-labelledby="headingFo"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+                                <p style="margin: 1em;padding: 1em"> Игорь Романюк - барабаны <a
+                                        href="https://vk.com/id30132346">...связаться</a><br></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

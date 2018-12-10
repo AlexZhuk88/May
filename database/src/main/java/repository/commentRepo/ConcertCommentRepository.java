@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ConcertCommentRepository extends CrudRepository<ConcertComment, Long>, CustomConcertCommentRepository {
 
-    List<ConcertComment> findByConcert(Concert concert);
+    List<ConcertComment> findByConcertOrderByTimingAsc(Concert concert);
 
     void deleteAllByConcertId(Long id);
 

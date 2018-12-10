@@ -18,92 +18,85 @@
     <div class="collapse navbar-collapse" id="navbar1">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/main}">Главная</a>
+                <a class="nav-link" th:href="@{/main}" th:text="#{main.label}"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/concertview}">Концерты</a>
+                <a class="nav-link" th:href="@{/concertview}" th:text="#{concert.label}">Концерты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/newsview}">Новости</a>
+                <a class="nav-link" th:href="@{/newsview}" th:text="#{news.label}">Новости</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/contact}">Контакты</a>
+                <a class="nav-link" th:href="@{/contact}" th:text="#{contact.label}">Контакты</a>
             </li>
         </ul>
     </div>
 
-    <a th:text="${user.username}">
-    </a>&nbsp;
+    <span th:text="#{autoriz.label}+': '"></span>&nbsp;
+    <a th:text="${user.username}" style="color: green">
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div th:fragment="language">
+        <a style="color: blue" href="?language=en_US">EN</a>&nbsp;/&nbsp;
+        <a style="color: blue" href="?language=ru_RU">RU</a>
+    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div th:fragment="logout">
         <form th:action="@{/logout}" th:method="post">
-            <input type="submit" th:value="Logout">
+            <button type="submit" class="btn btn-outline-danger" th:text="#{exit.label}">Выйти</button>
         </form>
     </div>
 </nav>
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2" style="height: 100%"></div>
-        <div class="col-md-8" style="height: 100%">
-
+        <div class="col-md-3" style="height: 100%"></div>
+        <div class="col-md-5" style="height: 100%">
+            <br>
+            <h5 th:text="${concert.concertName}" style="color: crimson"></h5>
+            <span>Описание: </span><span th:text="${concert.discription}"></span><br>
+            <br><img src="../../pictures/cool3.jpg" width="100%"/>
             <div class="card-group" style="margin: 0em; padding-top: 1em">
                 <!--<div class="card bg-light mb-3" style="padding: 1em; margin-top: 1em; margin-bottom: 1em">-->
-                    <!--<img class="card" src="${pageContext.request.contextPath}/pictures/concert2a.jpg"-->
-                         <!--style="margin: 0.1%; padding: 0.1%; width: 100%"-->
-                         <!--alt="Responsive image">-->
+                <!--<img class="card" src="${pageContext.request.contextPath}/pictures/concert2a.jpg"-->
+                <!--style="margin: 0.1%; padding: 0.1%; width: 100%"-->
+                <!--alt="Responsive image">-->
                 <!--</div>-->
-                <div class="card bg-light mb-3" style="padding: 1em; margin-top: 1em; margin-bottom: 1em">
-                    <h3 th:text="${concert.concertName}"></h3>
-                    <p th:text="${concert.groop.groopname}"></p>
-                    <p th:text="${concert.timing.date}"></p>
-                    <p th:text="${concert.timing.time}"></p>
-                    <p th:text="${concert.concertPlace.city}"></p>
-                    <p th:text="${concert.concertPlace.place}"></p>
-                    <p th:text="${concert.concertPlace.entrance}"></p>
-                    <p th:text="${concert.discription}"></p>
+                <div class="card bg-white mb-2" style="padding: 1em; margin-top: 1em; margin-bottom: 1em">
+                    <br> <br><br>
+                    <img class="card-img-top" src="../../pictures/groop.jpg" th:text="${concert.groop.groopname}" />
                 </div>
+                <div class="card bg-white mb-2" style="padding: 1em; margin-top: 1em; margin-bottom: 1em">
+                    <img class="card-img-top" src="../../pictures/data.jpg" th:text="${concert.timing.date}"/>
+                </div>
+                <div class="card bg-white mb-2" style="padding: 1em; margin-top: 1em; margin-bottom: 1em">
+                    <img class="card-img-top" src="../../pictures/time2.jpg" th:text="${concert.timing.time}"/>
+                </div>
+                <div class="card bg-white mb-2" style="padding: 1em; margin-top: 1em; margin-bottom: 1em">
+                    <img class="card-img-top" src="../../pictures/city.jpg" th:text="${concert.concertPlace.city}"/>
+                </div>
+                <div  class="card bg-white mb-2" style="padding: 1em; margin-top: 1em; margin-bottom: 1em">
+                    <img class="card-img-top" src="../../pictures/place.jpg" th:text="${concert.concertPlace.place}"/>
+                </div>
+                <div class="card bg-white mb-2" style="padding: 1em; margin-top: 1em; margin-bottom: 1em">
+                    <img class="card-img-top" src="../../pictures/entra.jpg" th:text="${concert.concertPlace.entrance}"/>
+                </div>
+
             </div>
-            <!--<div th:each="commentIn: ${comments}">-->
-                <!--<div class="jumbotron" style="padding: 0em; margin: 0em">-->
-                    <!--<c:if test="${sessionScope.user.id eq comment.idUser}">-->
-                        <!--<p class="text-danger">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-                            <!--${comment.username} (-->
-                            <!--<fmt:parseDate value="${ comment.time }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />-->
-                            <!--<fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" />-->
-                            <!--): ${comment.description}-->
-                    <!--</c:if>-->
-                    <!--<c:if test="${sessionScope.user.id ne comment.idUser}">-->
-                        <!--<p>&nbsp;&nbsp;${comment.username} (-->
-                            <!--<fmt:parseDate value="${ comment.time }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />-->
-                            <!--<fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" />-->
-                            <!--): ${comment.description}-->
-                    <!--</c:if>-->
-                    <!--<c:if test="${(sessionScope.user.role eq 'ADMIN') or (sessionScope.user.id eq comment.idUser)}">-->
-                        <!--<a style="float: right" class="text-danger" href="${pageContext.request.contextPath}/delete-comment?id=${comment.id}">-->
-                            <!--Удалить&nbsp;&nbsp;-->
-                        <!--</a>-->
-                    <!--</c:if>-->
-                    <!--</p>-->
-                <!--</div>-->
-            <!--</c:forEach>-->
-
-
+            <p>Комментарии: </p>
             <div th:each="comment: ${comments}">
                 <div class="card">
                     <div class="card-body">
-                        <span th:text="${comment.user.username}">Username</span>
-                        &nbsp(<span th:text="${comment.timing.date}">Date</span>
-                        <span th:text="${concert.timing.time}">Time</span>):&nbsp
+                        <span style="color: green" th:text="${comment.user.username}">Username</span>
+                        &nbsp(<span style="color: darkblue" th:text="${comment.timing.date}">Date</span>
+                        <span style="color: darkblue" th:text="${concert.timing.time}">Time</span>):&nbsp
                         <span th:text="${comment.discription}">Discription</span>
                         <!--<a th:href="@{/concertdetail(concertId=${concert.id})}"-->
-                           <!--class="btn btn-outline-primary">-->
-                            <!--Подробнее...-->
+                        <!--class="btn btn-outline-primary">-->
+                        <!--Подробнее...-->
                         <!--</a><br>-->
                     </div>
                 </div>
                 <br>
             </div>
-
             <form th:action="@{/concertdetail(concertId=${concert.id})}" method="post" th:object="${commentform}">
 
                 <div class="input-group">
@@ -113,15 +106,16 @@
 
 
                         <button class="btn btn-outline-secondary" type="submit">
-                           Отправить
+                            Отправить
                         </button>
                     </div>
                 </div>
             </form>
-
         </div>
-        <div class="col-md-2" style="height: 100%"></div>
+        <div class="col-md-3" style="height: 100%"></div>
     </div>
+
+</div>
 </div>
 
 <!-- Optional JavaScript -->

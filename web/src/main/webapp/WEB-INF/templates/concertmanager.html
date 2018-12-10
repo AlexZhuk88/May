@@ -22,25 +22,30 @@
     <div class="collapse navbar-collapse" id="navbar1">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/main}">Главная</a>
+                <a class="nav-link" th:href="@{/main}" th:text="#{main.label}"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/concertview}">Концерты</a>
+                <a class="nav-link" th:href="@{/concertview}" th:text="#{concert.label}">Концерты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/newsview}">Новости</a>
+                <a class="nav-link" th:href="@{/newsview}" th:text="#{news.label}">Новости</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/contact}">Контакты</a>
+                <a class="nav-link" th:href="@{/contact}" th:text="#{contact.label}">Контакты</a>
             </li>
         </ul>
     </div>
 
-    <a th:text="${user.username}">
-    </a>&nbsp;
+    <span th:text="#{autoriz.label}+': '"></span>&nbsp;
+    <a th:text="${user.username}" style="color: green">
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div th:fragment="language">
+        <a style="color: blue" href="?language=en_US">EN</a>&nbsp;/&nbsp;
+        <a style="color: blue" href="?language=ru_RU">RU</a>
+    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div th:fragment="logout">
         <form th:action="@{/logout}" th:method="post">
-            <input type="submit" th:value="Logout">
+            <button type="submit" class="btn btn-outline-danger" th:text="#{exit.label}">Выйти</button>
         </form>
     </div>
 </nav>
@@ -48,9 +53,9 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2" style="height: 100%">
-            <br><h5 align="center">Filters</h5><br>
+            <br><h5 align="center">Применить фильтры(<a style="color: crimson" th:href="@{/concertmanager}"><span>сбросить</span></a>)</h5><br>
             <form action="/concertmanager" method="get">
-                <label for="pagin">Number of element on one page:</label>
+                <label for="pagin">Количество концертов на странице</label>
                 <input type="text" style="width: 5em" class="form-control" name="pagin" id="pagin"
                        th:value="${pagin}"><br>
                 <label for="city">City:</label>
@@ -86,123 +91,92 @@
                         </div>
                     </div>
                 </select><br>
-                <button type="submit" class="btn btn-outline-primary">Find by filters</button>
+                <button type="submit" class="btn btn-outline-primary">Применить фильтры</button>
             </form>
         </div>
         <div class="col-md-8" style="height: 100%">
             <br>
+            <button class="btn btn-outline-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Создать концерт
+            </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <div class="container-fluid" id="page">
+                        <section>
+                            <h4 style="color: green">Новый концерт</h4>
+                            <form th:action="@{/concertmanager}" method="post" th:object="${savedConcert}">
+                                <div class="card-group">
+                                    <div class="card border-success mb-3">
+                                        <div class="card-header">Что...</div>
+                                        <div class="card-body text-success">
+                                            <label for="concertName">Название:
+                                                <input type="text" class="form-control" name="name" id="concertName"
+                                                       th:field="*{concertName}">
+                                            </label><br>
+                                            <label for="groop">Группа:
+                                                <div class="groop">
+                                                    <select name="groop" class="form-control" id="groop"
+                                                            th:field="*{groopname}">
+                                                        <option th:each="currentGroop: ${allGroop}"
+                                                                th:value="${currentGroop}"
+                                                                th:text="${currentGroop}">
+                                                            Groop
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </label><br>
+                                        </div>
+                                    </div>
 
+                                    <div class="card border-success mb-3">
+                                        <div class="card-header">Когда...</div>
+                                        <div class="card-body text-success">
+                                            <label for="data">Дата:
+                                                <input type="date" class="form-control" name="data" id="data"
+                                                       th:field="*{date}">
+                                            </label><br>
+                                            <label for="time">Время:
+                                                <input type="time" class="form-control" name="time" id="time"
+                                                       th:field="*{time}">
+                                            </label><br>
+                                        </div>
+                                    </div>
 
+                                    <div class="card border-success mb-3">
+                                        <div class="card-header">Где...</div>
+                                        <div class="card-body text-success">
+                                            <label for="city">Город:
+                                                <input type="text" class="form-control" name="city" id="city"
+                                                       th:field="*{city}">
+                                            </label><br>
+                                            <label for="place">Место:
+                                                <input type="text" class="form-control" name="place" id="place"
+                                                       th:field="*{place}">
+                                            </label><br>
+                                        </div>
+                                    </div>
 
-
-
-            <!--<div class="accordion" id="accordionExample">-->
-                <!--<div th:each="concert: ${concerts}">-->
-                <!--<div class="card">-->
-                    <!--<div class="card-header" th:id="${concert.concertName}">-->
-                        <!--<h5 class="mb-0">-->
-                            <!--<button class="btn btn-link" type="button" data-toggle="collapse" th:data-target="'#'+${concert.id}" aria-expanded="true" th:aria-controls="${concert.id}">-->
-                                <!--<span></span>${concert.concertName}-->
-                            <!--</button>-->
-                            <!--<h5 class="card-header" th:text="${concert.concertName}">Концерт</h5>-->
-                            <!--<div class="card-body">-->
-                                <!--Группа: <span th:text="${concert.groop.groopname}">Группа:</span><br>-->
-                                <!--Место: <span th:text="${concert.concertPlace.place}">Место:</span><br>-->
-                                <!--Город: <span th:text="${concert.concertPlace.city}">Город</span><br>-->
-                                <!--<a th:href="@{/concertdetail(concertId=${concert.id})}"-->
-                                   <!--class="btn btn-outline-primary">-->
-                                    <!--Подробнее...-->
-                                <!--</a>-->
-                                <!--<a th:href="@{/concertdelete(concertId=${concert.id})}"-->
-                                   <!--class="btn btn-outline-danger">-->
-                                    <!--Удалить...-->
-                                <!--</a><br>-->
-                            <!--</div>-->
-                        <!--</h5>-->
-                    <!--</div>-->
-
-                    <!--<div th:id="${concert.id}" class="collapse show" th:aria-labelledby="${concert.concertName}" data-parent="#accordionExample">-->
-                        <!--<div class="card-body">-->
-                            <!--<section>-->
-                                <!--<h1>Изменить концерт</h1>-->
-                                <!--<form th:action="@{/concertupdate(concertId=${concert.id})}" method="post" th:object="${updatedConcert}">-->
-                                    <!--<div class="card-group">-->
-                                        <!--<div class="card border-info mb-3">-->
-                                            <!--<div class="card-header">Общие данные</div>-->
-                                            <!--<div class="card-body text-info">-->
-                                                <!--<label for="concertName">Название:-->
-                                                    <!--<input type="text" class="form-control" name="name" id="concertName" th:text="${concert.concertName}"-->
-                                                           <!--th:field="*{concertName}">-->
-                                                <!--</label><br>-->
-                                                <!--<label for="groop">Группа:-->
-                                                    <!--<div class="groop">-->
-                                                        <!--<select name="groop" class="form-control" id="groop" th:placeholder="${concert.groop.groopname}"-->
-                                                                <!--th:field="*{groopname}">-->
-                                                            <!--<option th:each="currentGroop: ${allGroop}"-->
-                                                                    <!--th:value="${currentGroop}"-->
-                                                                    <!--th:text="${currentGroop}">-->
-                                                                <!--Groop-->
-                                                            <!--</option>-->
-                                                        <!--</select>-->
-                                                    <!--</div>-->
-                                                <!--</label><br>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div class="card border-info mb-3">-->
-                                            <!--<div class="card-header">Время</div>-->
-                                            <!--<div class="card-body text-info">-->
-                                                <!--<label for="data">Дата:-->
-                                                    <!--<input type="date" class="form-control" name="data" id="data" th:placeholder="${concert.timing.date}"-->
-                                                           <!--th:field="*{date}">-->
-                                                <!--</label><br>-->
-                                                <!--<label for="time">Время:-->
-                                                    <!--<input type="time" class="form-control" name="time" id="time" th:placeholder="${concert.timing.time}"-->
-                                                           <!--th:field="*{time}">-->
-                                                <!--</label><br>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div class="card border-info mb-3">-->
-                                            <!--<div class="card-header">Header</div>-->
-                                            <!--<div class="card-body text-info">-->
-                                                <!--<label for="city">Город:-->
-                                                    <!--<input type="text" class="form-control" name="city" id="city" th:placeholder="${concert.concertPlace.city}"-->
-                                                           <!--th:field="*{city}">-->
-                                                <!--</label><br>-->
-                                                <!--<label for="place">Место:-->
-                                                    <!--<input type="text" class="form-control" name="place" id="place" th:placeholder="${concert.concertPlace.place}"-->
-                                                           <!--th:field="*{place}">-->
-                                                <!--</label><br>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div class="card border-info mb-3">-->
-                                            <!--<div class="card-header">Header</div>-->
-                                            <!--<div class="card-body text-info">-->
-                                                <!--<label for="entrance">Вход:-->
-                                                    <!--<input type="text" class="form-control" name="entrance" id="entrance" th:placeholder="${concert.concertPlace.entrance}"-->
-                                                           <!--th:field="*{entrance}">-->
-                                                <!--</label><br>-->
-                                                <!--<label for="description">Описание:-->
-                                                    <!--<input type="text" class="form-control" name="description" id="description" th:placeholder="${concert.discription}"-->
-                                                           <!--th:field="*{discription}">-->
-                                                <!--</label><br>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<input type="submit" class="btn btn-outline-warning" value="Обновить">-->
-                                <!--</form>-->
-                            <!--</section>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
-
-
-
+                                    <div class="card border-success mb-3">
+                                        <div class="card-header">Как...</div>
+                                        <div class="card-body text-success">
+                                            <label for="entrance">Вход:
+                                                <input type="text" class="form-control" name="entrance" id="entrance"
+                                                       th:field="*{entrance}">
+                                            </label><br>
+                                            <label for="description">Описание:
+                                                <input type="text" class="form-control" name="description" id="description"
+                                                       th:field="*{discription}">
+                                            </label><br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-outline-success" value="Сохранить">
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -212,7 +186,7 @@
                     <div class="card-body">
                         Группа: <span th:text="${concert.groop.groopname}">Группа:</span><br>
                         Место: <span th:text="${concert.concertPlace.place}">Место:</span><br>
-                        Город: <span th:text="${concert.concertPlace.city}">Город</span><br>
+                        Город: <span th:text="${concert.concertPlace.city}">Город</span><br><br>
                         <a th:href="@{/concertdetail(concertId=${concert.id})}"
                            class="btn btn-outline-primary">
                             Подробнее...
@@ -220,102 +194,92 @@
                         <a th:href="@{/concertdelete(concertId=${concert.id})}"
                            class="btn btn-outline-danger">
                             Удалить...
-                        </a><br>
-                    </div>
-                </div>
-                <br>
+                        </a>
+                        <a>
+                            <button class="btn btn-outline-warning" type="button" data-toggle="collapse" th:data-target="'#collapseExample'+${concert.id}" aria-expanded="false" th:aria-controls="'collapseExample'+${concert.id}">
+                                Изменить
+                            </button>
+                        </a>
+                        <div class="collapse" th:id="'collapseExample'+${concert.id}">
+                            <div class="card card-body">
 
+                                <section>
+                                    <h4>Изменить концерт</h4>
+                                    <form th:action="@{/concertupdate(concertId=${concert.id})}" method="post" th:object="${updatedConcert}">
+                                        <div class="card-group">
+                                            <div class="card border-secondary mb-3">
+                                                <div class="card-header">Общие данные</div>
+                                                <div class="card-body text-secondary">
+                                                    <label for="concertName">Название:
+                                                        <input type="text" class="form-control" name="name" id="concertName" th:placeholder="${concert.concertName}"
+                                                               th:field="*{concertName}">
+                                                    </label><br>
+                                                    <label for="groop">Группа:
+                                                        <div class="groop">
+                                                            <select name="groop" class="form-control" id="groop" th:placeholder="${concert.groop.groopname}"
+                                                                    th:field="*{groopname}">
+                                                                <option th:each="currentGroop: ${allGroop}"
+                                                                        th:value="${currentGroop}"
+                                                                        th:text="${currentGroop}">
+                                                                    Groop
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </label><br>
+                                                </div>
+                                            </div>
 
+                                            <div class="card border-secondary mb-3">
+                                                <div class="card-header">Время</div>
+                                                <div class="card-body text-info">
+                                                    <label for="data">Дата:
+                                                        <input type="date" class="form-control" name="data" id="data" th:placeholder="${concert.timing.date}"
+                                                               th:field="*{date}">
+                                                    </label><br>
+                                                    <label for="time">Время:
+                                                        <input type="time" class="form-control" name="time" id="time" th:placeholder="${concert.timing.time}"
+                                                               th:field="*{time}">
+                                                    </label><br>
+                                                </div>
+                                            </div>
 
+                                            <div class="card border-secondary mb-3">
+                                                <div class="card-header">Header</div>
+                                                <div class="card-body text-secondary">
+                                                    <label for="city">Город:
+                                                        <input type="text" class="form-control" name="city" id="city" th:placeholder="${concert.concertPlace.city}"
+                                                               th:field="*{city}">
+                                                    </label><br>
+                                                    <label for="place">Место:
+                                                        <input type="text" class="form-control" name="place" id="place" th:placeholder="${concert.concertPlace.place}"
+                                                               th:field="*{place}">
+                                                    </label><br>
+                                                </div>
+                                            </div>
 
-
-                <!-- Large modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
-
-                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <!-- Modal -->
-
-                            ///////
-                            <section>
-                                <h1>Изменить концерт</h1>
-                                <form th:action="@{/concertupdate(concertId=${concert.id})}" method="post" th:object="${updatedConcert}">
-                                    <div class="card-group">
-                                        <div class="card border-info mb-3">
-                                            <div class="card-header">Общие данные</div>
-                                            <div class="card-body text-info">
-                                                <label for="concertName">Название:
-                                                    <input type="text" class="form-control" name="name" id="concertName" th:text="${concert.concertName}"
-                                                           th:field="*{concertName}">
-                                                </label><br>
-                                                <label for="groop">Группа:
-                                                    <div class="groop">
-                                                        <select name="groop" class="form-control" id="groop" th:placeholder="${concert.groop.groopname}"
-                                                                th:field="*{groopname}">
-                                                            <option th:each="currentGroop: ${allGroop}"
-                                                                    th:value="${currentGroop}"
-                                                                    th:text="${currentGroop}">
-                                                                Groop
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </label><br>
+                                            <div class="card border-secondary mb-3">
+                                                <div class="card-header">Header</div>
+                                                <div class="card-body text-secondary">
+                                                    <label for="entrance">Вход:
+                                                        <input type="text" class="form-control" name="entrance" id="entrance" th:placeholder="${concert.concertPlace.entrance}"
+                                                               th:field="*{entrance}">
+                                                    </label><br>
+                                                    <label for="description">Описание:
+                                                        <input type="text" class="form-control" name="description" id="description" th:placeholder="${concert.discription}"
+                                                               th:field="*{discription}">
+                                                    </label><br>
+                                                </div>
                                             </div>
                                         </div>
+                                        <input type="submit" class="btn btn-outline-warning" value="Применить">
+                                    </form>
+                                </section>
 
-                                        <div class="card border-info mb-3">
-                                            <div class="card-header">Время</div>
-                                            <div class="card-body text-info">
-                                                <label for="data">Дата:
-                                                    <input type="date" class="form-control" name="data" id="data" th:placeholder="${concert.timing.date}"
-                                                           th:field="*{date}">
-                                                </label><br>
-                                                <label for="time">Время:
-                                                    <input type="time" class="form-control" name="time" id="time" th:placeholder="${concert.timing.time}"
-                                                           th:field="*{time}">
-                                                </label><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="card border-info mb-3">
-                                            <div class="card-header">Header</div>
-                                            <div class="card-body text-info">
-                                                <label for="city">Город:
-                                                    <input type="text" class="form-control" name="city" id="city" th:placeholder="${concert.concertPlace.city}"
-                                                           th:field="*{city}">
-                                                </label><br>
-                                                <label for="place">Место:
-                                                    <input type="text" class="form-control" name="place" id="place" th:placeholder="${concert.concertPlace.place}"
-                                                           th:field="*{place}">
-                                                </label><br>
-                                            </div>
-                                        </div>
-
-                                        <div class="card border-info mb-3">
-                                            <div class="card-header">Header</div>
-                                            <div class="card-body text-info">
-                                                <label for="entrance">Вход:
-                                                    <input type="text" class="form-control" name="entrance" id="entrance" th:placeholder="${concert.concertPlace.entrance}"
-                                                           th:field="*{entrance}">
-                                                </label><br>
-                                                <label for="description">Описание:
-                                                    <input type="text" class="form-control" name="description" id="description" th:placeholder="${concert.discription}"
-                                                           th:field="*{discription}">
-                                                </label><br>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="submit" class="btn btn-outline-warning" value="Обновить">
-                                </form>
-                            </section>
-                            //////
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
-
+                <br>
 
             </div>
             <nav aria-label="Page navigation">
@@ -329,79 +293,7 @@
                     </div>
                 </ul>
             </nav>
-            <div class="container-fluid" id="page">
-                <section>
-                    <h1>Новый концерт</h1>
-                    <form th:action="@{/concertmanager}" method="post" th:object="${savedConcert}">
-                        <div class="card-group">
-                            <div class="card border-info mb-3">
-                                <div class="card-header">Общие данные</div>
-                                <div class="card-body text-info">
-                                    <label for="concertName">Название:
-                                        <input type="text" class="form-control" name="name" id="concertName"
-                                               th:field="*{concertName}">
-                                    </label><br>
-                                    <label for="groop">Группа:
-                                        <div class="groop">
-                                            <select name="groop" class="form-control" id="groop"
-                                                    th:field="*{groopname}">
-                                                <option th:each="currentGroop: ${allGroop}"
-                                                        th:value="${currentGroop}"
-                                                        th:text="${currentGroop}">
-                                                    Groop
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </label><br>
-                                </div>
-                            </div>
 
-                            <div class="card border-info mb-3">
-                                <div class="card-header">Время</div>
-                                <div class="card-body text-info">
-                                    <label for="data">Дата:
-                                        <input type="date" class="form-control" name="data" id="data"
-                                               th:field="*{date}">
-                                    </label><br>
-                                    <label for="time">Время:
-                                        <input type="time" class="form-control" name="time" id="time"
-                                               th:field="*{time}">
-                                    </label><br>
-                                </div>
-                            </div>
-
-                            <div class="card border-info mb-3">
-                                <div class="card-header">Header</div>
-                                <div class="card-body text-info">
-                                    <label for="city">Город:
-                                        <input type="text" class="form-control" name="city" id="city"
-                                               th:field="*{city}">
-                                    </label><br>
-                                    <label for="place">Место:
-                                        <input type="text" class="form-control" name="place" id="place"
-                                               th:field="*{place}">
-                                    </label><br>
-                                </div>
-                            </div>
-
-                            <div class="card border-info mb-3">
-                                <div class="card-header">Header</div>
-                                <div class="card-body text-info">
-                                    <label for="entrance">Вход:
-                                        <input type="text" class="form-control" name="entrance" id="entrance"
-                                               th:field="*{entrance}">
-                                    </label><br>
-                                    <label for="description">Описание:
-                                        <input type="text" class="form-control" name="description" id="description"
-                                               th:field="*{discription}">
-                                    </label><br>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="submit" class="btn btn-outline-primary" value="SAVE">
-                    </form>
-                </section>
-            </div>
         </div>
         <div class="col-md-2" style="height: 100%">
         </div>

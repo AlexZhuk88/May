@@ -5,6 +5,7 @@ import dto.GroopDto;
 import model.Concert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SQLUpdate;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -19,7 +20,6 @@ import java.util.List;
 public interface ConcertRepository extends CrudRepository<Concert, Long>, CustomConcertRepository {
 
     Concert findByConcertName(String name);
-
 
     @Modifying
     @Query(value = "update smay_db.concert\n" +
@@ -57,6 +57,7 @@ public interface ConcertRepository extends CrudRepository<Concert, Long>, Custom
     @Query(value = "select distinct cp.city from ConcertPlace cp")
     List<String> findAllCity();
 
+    @Cacheable("concert")
     @Query(value = "select distinct cp.place from ConcertPlace cp")
     List<String> findAllPlace();
 

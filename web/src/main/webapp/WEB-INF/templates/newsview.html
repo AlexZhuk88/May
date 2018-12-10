@@ -18,25 +18,30 @@
     <div class="collapse navbar-collapse" id="navbar1">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/main}">Главная</a>
+                <a class="nav-link" th:href="@{/main}" th:text="#{main.label}"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/concertview}">Концерты</a>
+                <a class="nav-link" th:href="@{/concertview}" th:text="#{concert.label}">Концерты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/newsview}">Новости</a>
+                <a class="nav-link" th:href="@{/newsview}" th:text="#{news.label}">Новости</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/contact}">Контакты</a>
+                <a class="nav-link" th:href="@{/contact}" th:text="#{contact.label}">Контакты</a>
             </li>
         </ul>
     </div>
 
-    <a th:text="${user.username}">
-    </a>&nbsp;
+    <span th:text="#{autoriz.label}+': '"></span>&nbsp;
+    <a th:text="${user.username}" style="color: green">
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div th:fragment="language">
+        <a style="color: blue" href="?language=en_US">EN</a>&nbsp;/&nbsp;
+        <a style="color: blue" href="?language=ru_RU">RU</a>
+    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div th:fragment="logout">
         <form th:action="@{/logout}" th:method="post">
-            <input type="submit" th:value="Logout">
+            <button type="submit" class="btn btn-outline-danger" th:text="#{exit.label}">Выйти</button>
         </form>
     </div>
 </nav>
@@ -44,9 +49,9 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2" style="height: 100%">
-            <br><h5 align="center">Filters</h5><br>
+            <br><h5 align="center">Применить фильтр(<a style="color: crimson" th:href="@{/newsview}"><span>сбросить</span></a>)</h5><br>
             <form action="/newsview" method="get">
-                <label for="pagin">Number of element on one page:</label>
+                <label for="pagin">Количество новостей на странице:</label>
                 <input type="text" style="width: 5em" class="form-control" name="pagin" id="pagin"
                        th:value="${pagin}"><br>
                 <label for="author">Автор:</label>
@@ -62,30 +67,44 @@
                     </div>
                 </select><br>
 
-                <label for="starttime">Start period:</label>
+                <label for="starttime">От:</label>
                 <input type="date" class="form-control" name="starttime" id="starttime" th:value="${starttime}"><br>
 
                 </input><br>
-                <label for="endtime">End period:</label>
+                <label for="endtime">До:</label>
                 <input type="date" class="form-control" name="endtime" id="endtime" th:value="${endtime}"><br>
 
                 </select><br>
-                <button type="submit" class="btn btn-outline-primary">Find by filters</button>
+                <button type="submit" class="btn btn-outline-primary">Применить фильтры</button>
             </form>
         </div>
         <div class="col-md-8" style="height: 100%">
             <br>
+
+
             <div th:each="thenew: ${thenews}">
-                <div class="card">
-                    <h5 class="card-header" th:text="${thenew.newsname}">Новость</h5>
-                    <div class="card-body">
-                        Группа: <span th:text="${thenew.discription}">Описание</span><br>
-                        Место: <span th:text="${thenew.timing.date}">Дата</span><br>
-                        Город: <span th:text="${thenew.timing.time}">Время</span><br>
-                        <!--<a th:href="@{/concertdetail(concertId=${concert.id})}"-->
-                           <!--class="btn btn-outline-primary">-->
-                            <!--Подробнее...-->
-                        <!--</a><br>-->
+
+                <div class="row">
+                    <div class="col-md-2" style="height: 100%">
+                        <div class="card bg-light mb-1" style="margin: 0em; padding: 1em">
+                            <img src="../../pictures/imag.png"
+                                 style="margin: 0.1%; padding: 0.1%; width: 100%"
+                                 alt="Responsive image">
+                        </div>
+                    </div>
+                    <div class="col-md-10" style="height: 100%">
+                        <div class="card">
+                            <h5 class="card-header" style="color: crimson" th:text="${thenew.newsname}">Новость</h5>
+                            <div class="card-body">
+                                Описание: <span th:text="${thenew.discription}">Описание</span><br>
+                                Дата: <span th:text="${thenew.timing.date}">Дата</span><br>
+                                Время: <span th:text="${thenew.timing.time}">Время</span><br>
+                                <!--<a th:href="@{/concertdetail(concertId=${concert.id})}"-->
+                                <!--class="btn btn-outline-primary">-->
+                                <!--Подробнее...-->
+                                <!--</a><br>-->
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br>
@@ -95,7 +114,8 @@
 
                     <div th:each="i: ${#numbers.sequence( 1, __${countPage}__)}">
                         <li class="page-item"><a class="page-link"
-                                                 th:href="@{/newsview(numPage=${i},pagin=${pagin},endtime=${endtime},starttime=${starttime},author=${author})}" th:text="${i}"></a>
+                                                 th:href="@{/newsview(numPage=${i},pagin=${pagin},endtime=${endtime},starttime=${starttime},author=${author})}"
+                                                 th:text="${i}"></a>
                         </li>
                     </div>
                 </ul>

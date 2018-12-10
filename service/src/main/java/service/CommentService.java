@@ -19,7 +19,7 @@ public class CommentService {
 
     @Transactional
     public List<ConcertComment> findAllComments(Concert concert) {
-        return concertCommentRepository.findByConcert(concert);
+        return concertCommentRepository.findByConcertOrderByTimingAsc(concert);
     }
     @Transactional
     public void saveComment(ConcertComment comment){
